@@ -6,8 +6,7 @@ export const categories: Category[] = [
     title: "موبایل",
     slug: "mobile",
     image: "/Image/categories/mobile.jpg",
-    description:
-      "جدیدترین گوشی‌های هوشمند اپل، سامسونگ و شیائومی با بهترین قیمت.",
+    description: "جدیدترین گوشی‌های هوشمند اپل، سامسونگ و شیائومی با بهترین قیمتتتتت.",
   },
   {
     id: 2,
@@ -27,21 +26,28 @@ export const categories: Category[] = [
     id: 4,
     title: "ساعت",
     slug: "watch",
-    image: "/Image/categories/headphone.jpg",
+    image: "/Image/categories/watch.png",
     description: "جدیدترین ساعت‌های هوشمند با امکانات سلامتی و ورزشی.",
   },
   {
     id: 5,
     title: "دوربین",
     slug: "camera",
-    image: "/Image/categories/headphone.jpg",
+    image: "/Image/categories/camera.png",
     description: "تجربه بهترین خاطرات با بهترین ابزار",
   },
   {
     id: 6,
     title: "کنسول",
     slug: "gaming",
-    image: "/Image/categories/headphone.jpg",
-    description: "تجربه بهترینو حرفه ای ترین بازی ها",
+    image: "/Image/categories/gaming.png",
+    description: "تجربه بهترین و حرفه‌ای‌ترین بازی‌ها",
+  },
+  {
+    id: 7,
+    title: "کیف",
+    slug: "bag",
+    image: "/uploads/products/1785061971987.png",
+    description: "این دسته‌بندی برای کیف‌های مختلف است.",
   },
 ];

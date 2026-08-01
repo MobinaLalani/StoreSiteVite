@@ -4,6 +4,18 @@ import { Category } from "@/src/types/category";
 import { Product } from "@/src/types/product";
 
 const STORAGE_KEY = "store_categories";
+const API_URL = "http://etesalgostarr.ir/phpStoreSite/categories";
+const ASSET_ORIGIN = "http://etesalgostarr.ir";
+
+function normalizeCategory(category: Category): Category {
+  return {
+    ...category,
+    slug: category.slug.replace(/^\/+/, ""),
+    image: category.image.startsWith("http")
+      ? category.image
+      : `${ASSET_ORIGIN}${category.image.startsWith("/") ? "" : "/"}${category.image}`,
+  };
+}
 
 function readCategories(): Category[] {
   const saved = localStorage.getItem(STORAGE_KEY);
@@ -19,7 +31,24 @@ function writeCategories(categories: Category[]) {
 }
 
 export async function getCategories(): Promise<Category[]> {
-  return readCategories();
+  try {
+    const response = await fetch(API_URL, {
+      headers: { Accept: "application/json" },
+    });
+
+    if (!response.ok) {
+      throw new Error(`دریافت دسته‌بندی‌ها ناموفق بود (${response.status}).`);
+    }
+
+    const categories = await response.json() as Category[];
+    if (categories.length > 0) {
+      return categories.map(normalizeCategory);
+    }
+  } catch (error) {
+    console.error("Category API error; using fallback data.", error);
+  }
+
+  return initialCategories.map(normalizeCategory);
 }
 
 export async function createCategory(data: Omit<Category, "id">): Promise<Category> {
@@ -45,7 +74,8 @@ export async function deleteCategory(id: number): Promise<void> {
 export async function getCategoriesWithProducts(): Promise<(Category & { products: Product[] })[]> {
   const savedProducts = localStorage.getItem("store_products");
   const products = savedProducts ? JSON.parse(savedProducts) as Product[] : initialProducts;
-  return readCategories().map((category) => ({
+  const categories = await getCategories();
+  return categories.map((category) => ({
     ...category,
     products: products.filter((product) => product.categoryId === category.id),
   }));
