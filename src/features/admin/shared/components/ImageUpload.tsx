@@ -5,6 +5,7 @@ import { useState } from "react";
 import Image from "@/src/components/ui/AppImage";
 
 import { Upload, X } from "lucide-react";
+import { API_BASE_URL, resolveImageUrl } from "@/src/lib/api";
 
 interface ImageUploadProps {
   value?: string | string[];
@@ -32,14 +33,18 @@ export default function ImageUpload({
       const urls: string[] = [];
 
       for (const file of Array.from(files)) {
-        const url = await new Promise<string>((resolve, reject) => {
-          const reader = new FileReader();
-          reader.onload = () => resolve(String(reader.result));
-          reader.onerror = () => reject(reader.error);
-          reader.readAsDataURL(file);
+        const formData = new FormData();
+        formData.append("file", file);
+
+        const response = await fetch(`${API_BASE_URL}/upload`, {
+          method: "POST",
+          body: formData,
         });
 
-        urls.push(url);
+        if (!response.ok) throw new Error(`Upload failed (${response.status})`);
+
+        const data = await response.json() as { url: string };
+        urls.push(data.url);
       }
 
       if (multiple) {
@@ -115,7 +120,7 @@ export default function ImageUpload({
                     "
             >
               <Image
-                src={image}
+                src={resolveImageUrl(image)}
                 alt="preview"
                 fill
                 className="
