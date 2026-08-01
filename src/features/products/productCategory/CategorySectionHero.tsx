@@ -1,8 +1,8 @@
 "use client";
 
-import Link from "next/link";
+import Link from "@/src/components/ui/AppLink";
 import { motion } from "framer-motion";
-import Image from "next/image";
+import Image from "@/src/components/ui/AppImage";
 import { ArrowLeft } from "lucide-react";
 
 

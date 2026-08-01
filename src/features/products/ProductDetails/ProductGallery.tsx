@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
+import Image from "@/src/components/ui/AppImage";
 import { motion } from "framer-motion";
 
 import { Product } from "@/src/types/product";

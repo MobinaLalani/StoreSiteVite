@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Lock, User } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
 import Button from "@/src/features/admin/shared/ui/Button";
@@ -12,7 +12,7 @@ import { useLogin } from "../hooks/useLogin";
 import { loginSchema, LoginFormValues } from "../validations/login.schema";
 
 export default function LoginForm() {
-  const router = useRouter();
+  const navigate = useNavigate();
 
   const loginMutation = useLogin();
 
@@ -35,7 +35,7 @@ export default function LoginForm() {
 
     await new Promise((resolve) => setTimeout(resolve, 3000));
 
-    router.push("/admin/Products");
+    navigate("/admin/Products");
     } catch {}
   }
 

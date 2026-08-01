@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import Link from "@/src/components/ui/AppLink";
 import { motion } from "framer-motion";
 import { PackageSearch } from "lucide-react";
 

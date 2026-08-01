@@ -1,9 +1,9 @@
 "use client";
 
-import Image from "next/image";
+import Image from "@/src/components/ui/AppImage";
 import { motion } from "framer-motion";
 import { Star, ShieldCheck } from "lucide-react";
-import heroPic from '@/public/Image/categories/camera.png'
+const heroPic = "/Image/categories/camera.png";
 export default function HeroImage() {
   return (
     <div className="relative flex items-center justify-center">

@@ -1,5 +1,3 @@
-import { notFound } from "next/navigation";
-
 import CategoryBreadcrumb from "./CategoryBreadcrumb";
 import CategorySectionHero from "./CategorySectionHero";
 import CategoryInfo from "./CategoryInfo";
@@ -17,7 +15,7 @@ export default function ProductCategoryPage({
   const data = getCategoryData(slug);
 
   if (!data) {
-    notFound();
+    return <main className="p-16 text-center"><h1 className="text-3xl font-bold">دسته‌بندی پیدا نشد</h1></main>;
   }
 
   const { category, products, productCount, brandCount, averageRating } = data;

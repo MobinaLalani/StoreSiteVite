@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import Link from "@/src/components/ui/AppLink";
 import { ChevronLeft, House } from "lucide-react";
 
 interface CategoryBreadcrumbProps {

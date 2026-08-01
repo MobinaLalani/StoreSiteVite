@@ -1,72 +1,52 @@
+import { categories as initialCategories } from "@/src/data/categories";
+import { products as initialProducts } from "@/src/data/products";
 import { Category } from "@/src/types/category";
+import { Product } from "@/src/types/product";
 
-const BASE_URL = "/api/categories";
-const BASE_URL2 = "http://localhost/phpStoreSite/categories";
-export async function getCategories() {
-  const response = await fetch(BASE_URL2);
+const STORAGE_KEY = "store_categories";
 
-  if (!response.ok) {
-    throw new Error("Failed");
+function readCategories(): Category[] {
+  const saved = localStorage.getItem(STORAGE_KEY);
+  if (!saved) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(initialCategories));
+    return [...initialCategories];
   }
-
-  return response.json();
+  return JSON.parse(saved) as Category[];
 }
 
-export async function createCategory(
-  data: Omit<Category, "id">,
-): Promise<Category> {
-  const response = await fetch(BASE_URL, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  });
-
-  if (!response.ok) {
-    throw new Error("Failed to create category.");
-  }
-
-  return response.json();
+function writeCategories(categories: Category[]) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(categories));
 }
 
-export async function updateCategory(
-  id: number,
-  data: Partial<Omit<Category, "id">>,
-): Promise<Category> {
-  const response = await fetch(`/api/categories/${id}`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  });
-
-  if (!response.ok) {
-    const error = await response.text();
-    console.log(error);
-
-    throw new Error(error);
-  }
-
-  return response.json();
+export async function getCategories(): Promise<Category[]> {
+  return readCategories();
 }
+
+export async function createCategory(data: Omit<Category, "id">): Promise<Category> {
+  const categories = readCategories();
+  const category = { ...data, id: Math.max(0, ...categories.map((item) => item.id)) + 1 };
+  writeCategories([...categories, category]);
+  return category;
+}
+
+export async function updateCategory(id: number, data: Partial<Omit<Category, "id">>): Promise<Category> {
+  const categories = readCategories();
+  const current = categories.find((item) => item.id === id);
+  if (!current) throw new Error("دسته‌بندی پیدا نشد.");
+  const updated = { ...current, ...data, id };
+  writeCategories(categories.map((item) => item.id === id ? updated : item));
+  return updated;
+}
+
 export async function deleteCategory(id: number): Promise<void> {
-  const response = await fetch(`${BASE_URL}/${id}`, {
-    method: "DELETE",
-  });
-
-  if (!response.ok) {
-    throw new Error("Failed to delete category.");
-  }
+  writeCategories(readCategories().filter((item) => item.id !== id));
 }
 
-export async function getCategoriesWithProducts() {
-  const response = await fetch("/api/categories?includeProducts=true");
-
-  if (!response.ok) {
-    throw new Error("Failed to fetch categories with products.");
-  }
-
-  return response.json();
+export async function getCategoriesWithProducts(): Promise<(Category & { products: Product[] })[]> {
+  const savedProducts = localStorage.getItem("store_products");
+  const products = savedProducts ? JSON.parse(savedProducts) as Product[] : initialProducts;
+  return readCategories().map((category) => ({
+    ...category,
+    products: products.filter((product) => product.categoryId === category.id),
+  }));
 }

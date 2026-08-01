@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Link from "next/link";
+import Link from "@/src/components/ui/AppLink";
 import { Product } from "../../../../types/product";
 
 import ProductImage from "./ProductImage";

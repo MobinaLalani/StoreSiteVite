@@ -1,7 +1,7 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import Link from "@/src/components/ui/AppLink";
+import { useLocation } from "react-router-dom";
 
 import {
   LayoutDashboard,
@@ -46,7 +46,7 @@ const menu = [
 ];
 
 export default function Sidebar() {
-  const pathname = usePathname();
+  const pathname = useLocation().pathname;
 
   return (
     <aside className="w-72 border-l border-gray-200 bg-white">

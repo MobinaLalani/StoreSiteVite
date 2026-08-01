@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Image from "@/src/components/ui/AppImage";
 import { Pencil, Trash2 } from "lucide-react";
 
 import DataTable, {

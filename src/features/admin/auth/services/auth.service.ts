@@ -1,19 +1,10 @@
 import { LoginFormValues } from "../validations/login.schema";
 
 export async function login(data: LoginFormValues) {
-  const response = await fetch("/api/login", {
-    method: "POST",
-
-    headers: {
-      "Content-Type": "application/json",
-    },
-
-    body: JSON.stringify(data),
-  });
-
-  if (!response.ok) {
+  if (data.username !== "admin" || data.password !== "12345") {
     throw new Error("نام کاربری یا رمز عبور اشتباه است.");
   }
 
-  return response.json();
+  sessionStorage.setItem("admin_authenticated", "true");
+  return { success: true };
 }

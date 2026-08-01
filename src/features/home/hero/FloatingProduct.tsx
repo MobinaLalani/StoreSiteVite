@@ -1,6 +1,6 @@
 "use client";
 
-import Image, { StaticImageData } from "next/image";
+import Image, { type StaticImageData } from "@/src/components/ui/AppImage";
 import { motion } from "framer-motion";
 
 interface FloatingProductProps {

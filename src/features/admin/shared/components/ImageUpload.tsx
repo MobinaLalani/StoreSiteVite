@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-import Image from "next/image";
+import Image from "@/src/components/ui/AppImage";
 
 import { Upload, X } from "lucide-react";
 
@@ -32,22 +32,14 @@ export default function ImageUpload({
       const urls: string[] = [];
 
       for (const file of Array.from(files)) {
-        const formData = new FormData();
-
-        formData.append("file", file);
-
-        const response = await fetch("/api/upload", {
-          method: "POST",
-          body: formData,
+        const url = await new Promise<string>((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(String(reader.result));
+          reader.onerror = () => reject(reader.error);
+          reader.readAsDataURL(file);
         });
 
-        if (!response.ok) {
-          throw new Error("Upload failed");
-        }
-
-        const data = await response.json();
-
-        urls.push(data.url);
+        urls.push(url);
       }
 
       if (multiple) {

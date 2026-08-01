@@ -1,12 +1,5 @@
 import { Category } from "@/src/types/category";
 
-import mobileImage from "/Image/categories/mobile.jpg";
-import laptopImage from "/Image/categories/laptop.png";
-import headphoneImage from "/Image/categories/headphone.jpg";
-// import watchImage from "@/public/Image/categories/watch.png";
-// import cameraImage from "@/public/Image/categories/camera.png";
-// import gamingImage from "@/public/Image/categories/gaming.png";
-
 export const categories: Category[] = [
   {
     id: 1,

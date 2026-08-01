@@ -1,13 +1,13 @@
 "use client";
 
-import Image from "next/image";
+import Image from "@/src/components/ui/AppImage";
 import { motion } from "framer-motion";
 import { Star, ShieldCheck, Truck, CreditCard } from "lucide-react";
 
 import FloatingProduct from "./FloatingProduct";
 import FloatingCard from "./FloatingCard";
 
-import heroPic from "@/public/Image/products/sarsim.png";
+const heroPic = "/Image/products/sarsim.png";
 
 const product1 = "/Image/products/batterycannectorcabel.png";
 const product2 = "/Image/products/cableshoe.png";
