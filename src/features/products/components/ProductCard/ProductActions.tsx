@@ -5,12 +5,20 @@ import { AnimatePresence, motion } from "framer-motion";
 import { createPortal } from "react-dom";
 import { MessageCircle, PhoneCall, X } from "lucide-react";
 import { SALES_CONTACT, whatsappUrl } from "@/src/config/contact";
+import {usePublicSettings}from"@/src/features/admin/settings/hooks/useSettings";
+import InquiryRequestForm from "@/src/features/admin/inquiries/components/InquiryRequestForm";
 
-interface ProductActionsProps { productTitle?: string; variant?: "card" | "detail"; }
+interface ProductActionsProps { productId?:number;productTitle?: string; variant?: "card" | "detail"; }
 
-export default function ProductActions({ productTitle, variant = "card" }: ProductActionsProps) {
+export default function ProductActions({ productId,productTitle, variant = "card" }: ProductActionsProps) {
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const {data:settings}=usePublicSettings();
+  const landline=settings?.store.landline||SALES_CONTACT.landlineDisplay;
+  const mobile=settings?.store.mobile||SALES_CONTACT.mobileDisplay;
+  const whatsapp=settings?.store.whatsapp||SALES_CONTACT.whatsappNumber;
+  const message=(settings?.inquiry.whatsappMessage||"سلام، برای استعلام قیمت محصول «{product}» پیام می‌دهم.").replace("{product}",productTitle||"محصول");
+  const whatsUrl=`https://wa.me/${whatsapp.replace(/\D/g,"")}?text=${encodeURIComponent(message)}`;
 
   useEffect(() => {
     setMounted(true);
@@ -25,7 +33,7 @@ export default function ProductActions({ productTitle, variant = "card" }: Produ
         className={`interactive-sheen flex w-full items-center justify-center gap-3 rounded-2xl bg-gradient-to-l from-red-500 to-red-600 font-semibold text-white shadow-lg shadow-red-500/20 transition hover:-translate-y-0.5 hover:shadow-red-500/30 ${variant === "detail" ? "min-h-14 px-6 py-4 text-base" : "py-4"}`}
       >
         <PhoneCall size={20} />
-        استعلام قیمت
+        {settings?.inquiry.buttonText||"استعلام قیمت"}
       </motion.button>
 
       {mounted &&
@@ -70,22 +78,23 @@ export default function ProductActions({ productTitle, variant = "card" }: Produ
                   </p>
 
                   <div className="space-y-4">
-                    <a
-                      href={SALES_CONTACT.landlineHref}
+                    {settings?.inquiry.phoneEnabled!==false&&<a
+                      href={`tel:${landline.replace(/[^\d+]/g,"")}`}
                       className="flex items-center gap-3 rounded-xl border p-4 transition hover:bg-gray-50"
                     >
                       <PhoneCall className="text-red-500" />
-                      <span dir="ltr">{SALES_CONTACT.landlineDisplay}</span>
-                    </a>
+                      <span dir="ltr">{landline}</span>
+                    </a>}
 
                     <a
-                      href={SALES_CONTACT.mobileHref}
+                      href={`tel:${mobile.replace(/[^\d+]/g,"")}`}
                       className="flex items-center gap-3 rounded-xl border p-4 transition hover:bg-gray-50"
                     >
                       <PhoneCall className="text-red-500" />
-                      <span dir="ltr">{SALES_CONTACT.mobileDisplay}</span>
+                      <span dir="ltr">{mobile}</span>
                     </a>
-                    <a href={whatsappUrl(productTitle)} target="_blank" rel="noreferrer" className="flex min-h-14 items-center justify-center gap-3 rounded-xl bg-emerald-500 p-4 font-bold text-white shadow-lg shadow-emerald-500/20 transition hover:bg-emerald-600"><MessageCircle/><span>استعلام در واتساپ</span></a>
+                    {settings?.inquiry.whatsappEnabled!==false&&<a href={settings?whatsUrl:whatsappUrl(productTitle)} target="_blank" rel="noreferrer" className="flex min-h-14 items-center justify-center gap-3 rounded-xl bg-emerald-500 p-4 font-bold text-white shadow-lg shadow-emerald-500/20 transition hover:bg-emerald-600"><MessageCircle/><span>استعلام در واتساپ</span></a>}
+                    <div className="border-t pt-4"><p className="mb-3 text-sm font-bold text-slate-700">یا درخواست تماس ثبت کنید</p><InquiryRequestForm productId={productId} productTitle={productTitle||"محصول"}/></div>
                   </div>
                 </motion.div>
               </motion.div>

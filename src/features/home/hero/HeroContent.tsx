@@ -9,8 +9,10 @@ import {
   Truck,
   Headphones,
 } from "lucide-react";
+import{usePublicSettings}from"@/src/features/admin/settings/hooks/useSettings";
 
 export default function HeroContent() {
+  const{data}=usePublicSettings();
   return (
     <div className="mx-auto max-w-xl text-center lg:mx-0 lg:text-right">
       {/* Badge */}
@@ -31,9 +33,7 @@ export default function HeroContent() {
         transition={{ delay: 0.2 }}
         className="text-3xl font-extrabold leading-[1.45] text-slate-900 sm:text-4xl lg:text-6xl"
       >
-        کیفیتی که
-        <span className="mx-2 text-red-500">اعتماد</span>
-        می‌سازد
+        {data?.appearance.heroTitle||<>کیفیتی که <span className="mx-2 text-red-500">اعتماد</span> می‌سازد</>}
       </motion.h1>
 
       {/* Description */}
@@ -43,8 +43,7 @@ export default function HeroContent() {
         transition={{ delay: 0.3 }}
         className="mt-5 text-base leading-8 text-gray-600 sm:mt-6 sm:text-lg sm:leading-9"
       >
-        تامین و فروش انواع تجهیزات صنعتی، ساختمانی و ابزارآلات با تضمین کیفیت،
-        ارسال سریع و پشتیبانی تخصصی.
+        {data?.appearance.heroDescription||"تامین و فروش انواع تجهیزات صنعتی، ساختمانی و ابزارآلات با تضمین کیفیت، ارسال سریع و پشتیبانی تخصصی."}
       </motion.p>
 
       {/* Features */}

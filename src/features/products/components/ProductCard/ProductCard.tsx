@@ -38,7 +38,7 @@ export default function ProductCard({ product }: ProductCardProps) {
 
     <ProductRating product={product} />
 
-    <ProductActions productTitle={product.title} />
+    <ProductActions productId={product.id} productTitle={product.title} />
   </div>
 </motion.article>
   );

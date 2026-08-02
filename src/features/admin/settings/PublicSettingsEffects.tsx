@@ -1,0 +1,3 @@
+import{useEffect}from"react";import{usePublicSettings}from"./hooks/useSettings";
+function setMeta(name:string,content:string){let element=document.querySelector(`meta[name="${name}"]`)as HTMLMetaElement|null;if(!element){element=document.createElement("meta");element.name=name;document.head.appendChild(element)}element.content=content;}
+export default function PublicSettingsEffects(){const{data}=usePublicSettings();useEffect(()=>{if(!data)return;document.title=data.seo.title;setMeta("description",data.seo.description);setMeta("keywords",data.seo.keywords);setMeta("robots",data.seo.allowIndexing?"index, follow":"noindex, nofollow");document.documentElement.style.setProperty("--brand",data.appearance.primaryColor);},[data]);return null;}

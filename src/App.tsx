@@ -1,6 +1,6 @@
-import { useEffect, useState, type ReactNode } from "react";
+import { lazy, Suspense, useEffect, useState, type ReactNode } from "react";
 import { Navigate, NavLink, Outlet, Route, Routes, useLocation, useParams } from "react-router-dom";
-import { FolderTree, LayoutDashboard, Package, Store } from "lucide-react";
+import { FolderTree, LayoutDashboard, MessageCircle, Package, Settings } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 
 import Header from "@/src/components/layout/Header";
@@ -13,10 +13,9 @@ import Hero from "@/src/features/home/hero/Hero";
 import Categories from "@/src/features/home/Categories";
 import ProductSection from "@/src/features/products/components/ProductSection/ProductSection";
 import ProductCategoryPage from "@/src/features/products/productCategory";
-import ProductPage from "@/src/features/admin/products/ProductPage";
-import { CategoryPage } from "@/src/features/admin/categories";
 import LoginForm from "@/src/features/admin/auth/components/LoginForm";
 import { validateSession } from "@/src/lib/auth";
+import {usePublicSettings}from"@/src/features/admin/settings/hooks/useSettings";
 import { products } from "@/src/data/products";
 import {
   ProductGallery,
@@ -26,13 +25,21 @@ import {
   RelatedProducts,
 } from "@/src/features/products/ProductDetails";
 
+const ProductPage=lazy(()=>import("@/src/features/admin/products/ProductPage"));
+const CategoryPage=lazy(()=>import("@/src/features/admin/categories/CategoryPage"));
+const SettingsPage=lazy(()=>import("@/src/features/admin/settings/SettingsPage"));
+const InquiriesPage=lazy(()=>import("@/src/features/admin/inquiries/InquiriesPage"));
+const DashboardPage=lazy(()=>import("@/src/features/admin/dashboard/DashboardPage"));
+const LazyPage=({children}:{children:ReactNode})=><Suspense fallback={<div className="grid min-h-64 place-items-center text-slate-400">در حال بارگذاری...</div>}>{children}</Suspense>;
+
 function StoreLayout() {
   const location = useLocation();
   return <div className="pb-[calc(4.25rem+env(safe-area-inset-bottom))] lg:pb-0"><Header /><Navbar /><AnimatePresence mode="wait"><motion.div key={location.pathname} initial={{opacity:0,y:12}} animate={{opacity:1,y:0}} exit={{opacity:0,y:-8}} transition={{duration:.28,ease:[.22,1,.36,1]}}><Outlet /></motion.div></AnimatePresence><Footer /></div>;
 }
 
 function HomePage() {
-  return <><Hero /><Categories /><ProductSection title="جدیدترین محصولات" description="جدیدترین محصولات فروشگاه" /></>;
+  const{data}=usePublicSettings();
+  return <><Hero />{data?.appearance.showCategories!==false&&<Categories />}{data?.appearance.showFeaturedProducts!==false&&<ProductSection title="جدیدترین محصولات" description="جدیدترین محصولات فروشگاه" />}</>;
 }
 
 function ProductDetailsPage() {
@@ -71,7 +78,7 @@ function ProtectedAdminRoute({ children }: { children: ReactNode }) {
 
 function AdminMobileNav() {
   const itemClass = ({ isActive }: { isActive: boolean }) => `flex flex-1 flex-col items-center justify-center gap-1 py-2 text-[11px] font-medium ${isActive ? "text-red-500" : "text-gray-500"}`;
-  return <nav className="fixed inset-x-0 bottom-0 z-40 border-t bg-white/95 pb-[env(safe-area-inset-bottom)] shadow-[0_-8px_30px_rgba(15,23,42,.10)] backdrop-blur-xl lg:hidden"><div className="mx-auto flex h-[4.25rem] max-w-md px-2"><NavLink end to="/admin" className={itemClass}><LayoutDashboard size={21}/><span>داشبورد</span></NavLink><NavLink to="/admin/Products" className={itemClass}><Package size={21}/><span>محصولات</span></NavLink><NavLink to="/admin/Categories" className={itemClass}><FolderTree size={21}/><span>دسته‌بندی</span></NavLink><NavLink to="/" className={itemClass}><Store size={21}/><span>فروشگاه</span></NavLink></div></nav>;
+  return <nav className="fixed inset-x-0 bottom-0 z-40 border-t bg-white/95 pb-[env(safe-area-inset-bottom)] shadow-[0_-8px_30px_rgba(15,23,42,.10)] backdrop-blur-xl lg:hidden"><div className="mx-auto flex h-[4.25rem] max-w-lg px-1"><NavLink end to="/admin" className={itemClass}><LayoutDashboard size={20}/><span>داشبورد</span></NavLink><NavLink to="/admin/Products" className={itemClass}><Package size={20}/><span>محصولات</span></NavLink><NavLink to="/admin/Categories" className={itemClass}><FolderTree size={20}/><span>دسته‌ها</span></NavLink><NavLink to="/admin/inquiries" className={itemClass}><MessageCircle size={20}/><span>استعلام‌ها</span></NavLink><NavLink to="/admin/settings" className={itemClass}><Settings size={20}/><span>تنظیمات</span></NavLink></div></nav>;
 }
 
 function LoginPage() {
@@ -83,5 +90,5 @@ function NotFound() {
 }
 
 export default function App() {
-  return <Routes><Route path="/" element={<StoreLayout />}><Route index element={<HomePage />} /><Route path="home" element={<HomePage />} /><Route path="products" element={<ProductSection title="محصولات" description="همه محصولات فروشگاه" />} /><Route path="products/:slug" element={<ProductDetailsPage />} /><Route path="products/category/:slug" element={<CategoryProductsPage />} /></Route><Route path="/admin/login" element={<LoginPage />} /><Route path="/admin" element={<ProtectedAdminRoute><AdminLayout /></ProtectedAdminRoute>}><Route index element={<div>پنل مدیریت فروشگاه</div>} /><Route path="Products" element={<ProductPage />} /><Route path="Categories" element={<CategoryPage />} /></Route><Route path="/404" element={<NotFound />} /><Route path="*" element={<Navigate to="/404" replace />} /></Routes>;
+  return <Routes><Route path="/" element={<StoreLayout />}><Route index element={<HomePage />} /><Route path="home" element={<HomePage />} /><Route path="products" element={<ProductSection title="محصولات" description="همه محصولات فروشگاه" />} /><Route path="products/:slug" element={<ProductDetailsPage />} /><Route path="products/category/:slug" element={<CategoryProductsPage />} /></Route><Route path="/admin/login" element={<LoginPage />} /><Route path="/admin" element={<ProtectedAdminRoute><AdminLayout /></ProtectedAdminRoute>}><Route index element={<LazyPage><DashboardPage/></LazyPage>} /><Route path="Products" element={<LazyPage><ProductPage/></LazyPage>} /><Route path="Categories" element={<LazyPage><CategoryPage/></LazyPage>} /><Route path="inquiries" element={<LazyPage><InquiriesPage/></LazyPage>} /><Route path="settings" element={<LazyPage><SettingsPage/></LazyPage>} /></Route><Route path="/404" element={<NotFound />} /><Route path="*" element={<Navigate to="/404" replace />} /></Routes>;
 }

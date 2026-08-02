@@ -7,8 +7,7 @@ import {
   LayoutDashboard,
   Package,
   FolderTree,
-  ShoppingCart,
-  Users,
+  MessageCircle,
   Settings,
   X,
 } from "lucide-react";
@@ -30,14 +29,9 @@ const menu = [
     icon: FolderTree,
   },
   {
-    title: "سفارش ها",
-    href: "/admin/orders",
-    icon: ShoppingCart,
-  },
-  {
-    title: "کاربران",
-    href: "/admin/users",
-    icon: Users,
+    title: "استعلام‌ها",
+    href: "/admin/inquiries",
+    icon: MessageCircle,
   },
   {
     title: "تنظیمات",

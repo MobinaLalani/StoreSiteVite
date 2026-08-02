@@ -95,7 +95,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
 
       {/* Actions */}
 
-      <ProductActions productTitle={product.title} />
+      <ProductActions productId={product.id} productTitle={product.title} />
 
       {/* Services */}
 
