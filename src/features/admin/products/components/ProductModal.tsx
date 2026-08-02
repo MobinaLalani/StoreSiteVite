@@ -47,16 +47,21 @@ export default function ProductModal({
       items-center
       justify-center
       bg-black/40
-      p-4
+      p-0
+      sm:p-4
     "
     >
       <div
         className="
         w-full
         max-w-3xl
-        max-h-[90vh]
+        h-full
+        max-h-[100dvh]
         overflow-y-auto
-        rounded-2xl
+        rounded-none
+        sm:h-auto
+        sm:max-h-[90vh]
+        sm:rounded-2xl
         bg-white
         shadow-xl
       "
@@ -67,8 +72,8 @@ export default function ProductModal({
           items-center
           justify-between
           border-b
-          px-6
-          py-5
+          sticky top-0 z-10 bg-white px-4 py-4
+          sm:px-6 sm:py-5
         "
         >
           <h2 className="text-xl font-bold">{title}</h2>
@@ -86,7 +91,7 @@ export default function ProductModal({
           </button>
         </div>
 
-        <div className="p-6">
+        <div className="p-4 sm:p-6">
           <ProductForm
             loading={loading}
             initialValues={product}

@@ -27,9 +27,9 @@ export default function CategoryModal({
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
-      <div className="w-full max-w-xl rounded-2xl bg-white shadow-xl">
-        <div className="flex items-center justify-between border-b px-6 py-5">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-0 sm:p-4">
+      <div className="h-full max-h-[100dvh] w-full max-w-xl overflow-y-auto rounded-none bg-white shadow-xl sm:h-auto sm:max-h-[90vh] sm:rounded-2xl">
+        <div className="sticky top-0 z-10 flex items-center justify-between border-b bg-white px-4 py-4 sm:px-6 sm:py-5">
           <h2 className="text-xl font-bold">{title}</h2>
 
           <button
@@ -40,7 +40,7 @@ export default function CategoryModal({
           </button>
         </div>
 
-        <div className="p-6">
+        <div className="p-4 sm:p-6">
           <CategoryForm
             loading={loading}
             initialValues={category}

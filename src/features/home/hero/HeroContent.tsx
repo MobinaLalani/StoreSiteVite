@@ -12,7 +12,7 @@ import {
 
 export default function HeroContent() {
   return (
-    <div className="max-w-xl">
+    <div className="mx-auto max-w-xl text-center lg:mx-0 lg:text-right">
       {/* Badge */}
       <motion.div
         initial={{ opacity: 0, y: 15 }}
@@ -29,7 +29,7 @@ export default function HeroContent() {
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
-        className="text-4xl font-extrabold leading-[1.4] text-slate-900 lg:text-6xl"
+        className="text-3xl font-extrabold leading-[1.45] text-slate-900 sm:text-4xl lg:text-6xl"
       >
         کیفیتی که
         <span className="mx-2 text-red-500">اعتماد</span>
@@ -41,7 +41,7 @@ export default function HeroContent() {
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
-        className="mt-6 text-lg leading-9 text-gray-600"
+        className="mt-5 text-base leading-8 text-gray-600 sm:mt-6 sm:text-lg sm:leading-9"
       >
         تامین و فروش انواع تجهیزات صنعتی، ساختمانی و ابزارآلات با تضمین کیفیت،
         ارسال سریع و پشتیبانی تخصصی.
@@ -52,7 +52,7 @@ export default function HeroContent() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.4 }}
-        className="mt-8 grid grid-cols-2 gap-4"
+        className="mt-7 grid grid-cols-1 gap-3 text-right min-[380px]:grid-cols-2 sm:mt-8 sm:gap-4"
       >
         <div className="flex items-center gap-3">
           <ShieldCheck className="text-green-500" size={20} />
@@ -82,12 +82,12 @@ export default function HeroContent() {
         transition={{ delay: 0.5 }}
         className="mt-10 flex flex-wrap gap-4"
       >
-        <button className="flex items-center gap-2 rounded-2xl bg-red-500 px-8 py-4 font-semibold text-white transition hover:bg-red-600">
+        <button className="flex min-h-12 flex-1 items-center justify-center gap-2 rounded-2xl bg-red-500 px-4 py-3 font-semibold text-white transition hover:bg-red-600 sm:flex-none sm:px-8 sm:py-4">
           مشاهده محصولات
           <ArrowLeft size={18} />
         </button>
 
-        <button className="flex items-center gap-2 rounded-2xl border border-slate-300 px-8 py-4 font-semibold transition hover:bg-slate-100">
+        <button className="flex min-h-12 flex-1 items-center justify-center gap-2 rounded-2xl border border-slate-300 px-4 py-3 font-semibold transition hover:bg-slate-100 sm:flex-none sm:px-8 sm:py-4">
           <PhoneCall size={18} />
           تماس با ما
         </button>
@@ -98,7 +98,7 @@ export default function HeroContent() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.6 }}
-        className="mt-14 grid grid-cols-3 gap-8 border-t pt-8"
+        className="mt-10 grid grid-cols-3 gap-2 border-t pt-6 text-center sm:mt-14 sm:gap-8 sm:pt-8 lg:text-right"
       >
         <div>
           <h3 className="text-3xl font-extrabold text-red-500">+250</h3>

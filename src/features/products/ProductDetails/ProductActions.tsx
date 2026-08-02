@@ -34,7 +34,7 @@ export default function ProductActions() {
 
       {/* Buttons */}
 
-      <div className="flex gap-4">
+      <div className="flex gap-3 sm:gap-4">
         <motion.button
           whileHover={{
             scale: 1.02,
@@ -42,7 +42,7 @@ export default function ProductActions() {
           whileTap={{
             scale: 0.97,
           }}
-          className="flex-1 rounded-2xl bg-red-500 px-6 py-4 font-semibold text-white transition hover:bg-red-600"
+          className="min-h-12 flex-1 rounded-2xl bg-red-500 px-3 py-3 font-semibold text-white transition hover:bg-red-600 sm:px-6 sm:py-4"
         >
           <div className="flex items-center justify-center gap-3">
             <ShoppingCart size={20} />

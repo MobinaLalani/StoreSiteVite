@@ -24,7 +24,7 @@ export default function DeleteCategoryDialog({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
-      <div className="w-full max-w-md rounded-2xl bg-white p-6 shadow-xl">
+      <div className="w-full max-w-md rounded-2xl bg-white p-5 shadow-xl sm:p-6">
         <div className="mb-5 flex justify-center">
           <div className="rounded-full bg-red-100 p-4">
             <AlertTriangle size={34} className="text-red-600" />

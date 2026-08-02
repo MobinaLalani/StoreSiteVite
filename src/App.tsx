@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Navigate, Outlet, Route, Routes, useParams } from "react-router-dom";
 
 import Header from "@/src/components/layout/Header";
@@ -23,7 +24,7 @@ import {
 } from "@/src/features/products/ProductDetails";
 
 function StoreLayout() {
-  return <><Header /><Navbar /><Outlet /><Footer /></>;
+  return <div className="pb-[calc(4.25rem+env(safe-area-inset-bottom))] lg:pb-0"><Header /><Navbar /><Outlet /><Footer /></div>;
 }
 
 function HomePage() {
@@ -35,7 +36,7 @@ function ProductDetailsPage() {
   const product = products.find((item) => item.slug === slug);
   if (!product) return <NotFound />;
   const relatedProducts = products.filter((item) => item.categoryId === product.categoryId && item.id !== product.id).slice(0, 4);
-  return <main className="mx-auto max-w-7xl space-y-20 px-4 py-10"><section className="grid gap-12 lg:grid-cols-2"><ProductGallery product={product} /><ProductInfo product={product} /></section><ProductDescription product={product} /><ProductSpecifications product={product} /><RelatedProducts products={relatedProducts} /></main>;
+  return <main className="mx-auto max-w-7xl space-y-10 px-4 py-6 sm:space-y-14 sm:px-6 sm:py-10 lg:space-y-20"><section className="grid gap-8 lg:grid-cols-2 lg:gap-12"><ProductGallery product={product} /><ProductInfo product={product} /></section><ProductDescription product={product} /><ProductSpecifications product={product} /><RelatedProducts products={relatedProducts} /></main>;
 }
 
 function CategoryProductsPage() {
@@ -44,11 +45,12 @@ function CategoryProductsPage() {
 }
 
 function AdminLayout() {
-  return <div className="flex h-screen bg-gray-50"><Sidebar /><div className="flex flex-1 flex-col overflow-hidden"><AdminHeader /><main className="flex-1 overflow-y-auto p-8"><Outlet /></main><AdminFooter /></div></div>;
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  return <div className="flex min-h-dvh bg-gray-50 lg:h-screen"><Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} /><div className="flex min-w-0 flex-1 flex-col overflow-hidden"><AdminHeader onMenu={() => setSidebarOpen(true)} /><main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8"><Outlet /></main><AdminFooter /></div></div>;
 }
 
 function LoginPage() {
-  return <div className="flex min-h-screen items-center justify-center bg-gray-100 p-6"><div className="w-full max-w-md rounded-2xl bg-white p-8 shadow-xl"><h1 className="mb-8 text-center text-3xl font-bold">پنل مدیریت</h1><LoginForm /></div></div>;
+  return <div className="flex min-h-dvh items-center justify-center bg-gray-100 p-4 sm:p-6"><div className="w-full max-w-md rounded-2xl bg-white p-5 shadow-xl sm:p-8"><h1 className="mb-6 text-center text-2xl font-bold sm:mb-8 sm:text-3xl">پنل مدیریت</h1><LoginForm /></div></div>;
 }
 
 function NotFound() {

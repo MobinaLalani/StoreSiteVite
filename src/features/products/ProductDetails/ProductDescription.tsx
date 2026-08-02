@@ -27,7 +27,7 @@ export default function ProductDescription({
       transition={{
         duration: 0.4,
       }}
-      className="rounded-3xl border border-gray-200 bg-white p-8"
+      className="rounded-2xl border border-gray-200 bg-white p-5 sm:rounded-3xl sm:p-8"
     >
       {/* Header */}
 

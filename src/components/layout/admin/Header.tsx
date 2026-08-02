@@ -1,18 +1,19 @@
 "use client";
 
-import { Bell, Search, UserCircle2 } from "lucide-react";
+import { Bell, Search, UserCircle2, Menu } from "lucide-react";
 
-export default function Header() {
+export default function Header({ onMenu }: { onMenu?: () => void }) {
   return (
-    <header className="flex h-20 items-center justify-between border-b bg-white px-8">
-      <div>
-        <h2 className="text-2xl font-bold">داشبورد</h2>
+    <header className="flex min-h-16 items-center justify-between gap-3 border-b bg-white px-4 sm:h-20 sm:px-6 lg:px-8">
+      <div className="flex min-w-0 items-center gap-3">
+        <button onClick={onMenu} aria-label="باز کردن منو" className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-gray-100 lg:hidden"><Menu size={22}/></button>
+        <div className="min-w-0"><h2 className="truncate text-lg font-bold sm:text-2xl">داشبورد</h2>
 
-        <p className="text-sm text-gray-500">خوش آمدید</p>
+        <p className="hidden text-sm text-gray-500 sm:block">خوش آمدید</p></div>
       </div>
 
-      <div className="flex items-center gap-5">
-        <div className="relative">
+      <div className="flex items-center gap-2 sm:gap-5">
+        <div className="relative hidden md:block">
           <Search className="absolute right-3 top-3 text-gray-400" size={18} />
 
           <input
@@ -21,14 +22,14 @@ export default function Header() {
           />
         </div>
 
-        <button className="rounded-full bg-gray-100 p-3 hover:bg-gray-200">
+        <button className="grid h-11 w-11 place-items-center rounded-full bg-gray-100 hover:bg-gray-200">
           <Bell size={20} />
         </button>
 
         <button className="flex items-center gap-2">
-          <UserCircle2 size={40} />
+          <UserCircle2 className="h-9 w-9 sm:h-10 sm:w-10" />
 
-          <div className="text-right">
+          <div className="hidden text-right sm:block">
             <p className="font-semibold">Mobina</p>
 
             <span className="text-xs text-gray-500">Administrator</span>

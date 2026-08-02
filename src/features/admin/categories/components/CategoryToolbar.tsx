@@ -24,7 +24,8 @@ export default function CategoryToolbar({
         gap-4
         rounded-2xl
         bg-white
-        p-5
+        p-4
+        sm:p-5
         shadow-sm
         md:flex-row
         md:items-center
@@ -47,6 +48,7 @@ export default function CategoryToolbar({
           rounded-xl
           bg-blue-600
           px-5
+          min-h-12
           py-3
           text-white
           transition

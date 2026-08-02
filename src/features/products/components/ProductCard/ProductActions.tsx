@@ -30,7 +30,7 @@ export default function ProductActions() {
           <AnimatePresence>
             {open && (
               <motion.div
-                className="fixed inset-0 z-[9999] flex items-center justify-center"
+                className="fixed inset-0 z-[9999] flex items-end justify-center p-0 sm:items-center sm:p-4"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
@@ -47,7 +47,7 @@ export default function ProductActions() {
                   animate={{ scale: 1, opacity: 1, y: 0 }}
                   exit={{ scale: 0.9, opacity: 0, y: 20 }}
                   transition={{ duration: 0.2 }}
-                  className="relative z-10 w-[90%] max-w-md rounded-3xl bg-white p-6 shadow-2xl"
+                  className="relative z-10 w-full max-w-md rounded-t-3xl bg-white p-5 shadow-2xl sm:rounded-3xl sm:p-6"
                 >
                   <div className="mb-6 flex items-center justify-between">
                     <h2 className="text-xl font-bold">

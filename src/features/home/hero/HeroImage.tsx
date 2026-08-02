@@ -18,7 +18,7 @@ export default function HeroImage() {
   return (
     <div className="relative flex items-center justify-center">
       {/* Glow */}
-      <div className="absolute h-[420px] w-[420px] rounded-full bg-red-100 blur-3xl" />
+      <div className="absolute h-[260px] w-[260px] rounded-full bg-red-100 blur-3xl sm:h-[420px] sm:w-[420px]" />
 
       {/* Floating Products */}
       {/* Floating Products */}

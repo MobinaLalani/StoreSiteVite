@@ -21,7 +21,7 @@ export default function ProductCategoryPage({
   const { category, products, productCount, brandCount, averageRating } = data;
 
   return (
-    <main className="container mx-auto px-4 py-10">
+    <main className="container mx-auto px-4 py-6 sm:px-6 sm:py-10">
       <CategoryBreadcrumb title={category.title} />
 
       <CategorySectionHero
@@ -40,10 +40,10 @@ export default function ProductCategoryPage({
         averageRating={averageRating}
       />
 
-      <section className="mt-16">
+      <section className="mt-10 sm:mt-16">
         <div className="mb-8 flex items-center justify-between">
           <div>
-            <h2 className="text-3xl font-bold">محصولات {category.title}</h2>
+            <h2 className="text-2xl font-bold sm:text-3xl">محصولات {category.title}</h2>
 
             <p className="mt-2 text-gray-500">
               {productCount} محصول در این دسته

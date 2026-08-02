@@ -25,7 +25,7 @@ export default function ProductImage({ product }: Props) {
           transition={{
             duration: 0.35,
           }}
-          className="flex h-72 items-center justify-center bg-transparent"
+          className="flex h-56 items-center justify-center bg-transparent sm:h-72"
         >
           <Image
             src={product.thumbnail}

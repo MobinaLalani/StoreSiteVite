@@ -26,11 +26,13 @@ export default function CategoryCard({ category }: Props) {
         }}
         className="
           group
-          rounded-3xl
+          rounded-2xl
           border
           border-gray-200
           bg-white
-          p-6
+          p-3
+          sm:rounded-3xl
+          sm:p-6
           shadow-sm
           transition-all
           hover:border-red-200
@@ -42,14 +44,16 @@ export default function CategoryCard({ category }: Props) {
             className="
               relative
               flex
-              h-24
-              w-24
+              h-16
+              w-16
               items-center
               justify-center
               rounded-full
               bg-gray-100
               transition-all
               group-hover:bg-red-50
+              sm:h-24
+              sm:w-24
             "
           >
             <Image
@@ -63,12 +67,14 @@ export default function CategoryCard({ category }: Props) {
 
           <h3
             className="
-              mt-5
-              text-lg
+              mt-3
+              text-sm
               font-bold
               text-gray-800
               transition-colors
               group-hover:text-red-500
+              sm:mt-5
+              sm:text-lg
             "
           >
             {category.title}

@@ -26,7 +26,7 @@ export default function Categories() {
             once: true,
           }}
         >
-          <h2 className="text-4xl font-black">دسته‌بندی محصولات</h2>
+          <h2 className="text-2xl font-black sm:text-4xl">دسته‌بندی محصولات</h2>
 
           <p className="mt-3 text-gray-500">محبوب‌ترین دسته‌بندی‌های فروشگاه</p>
         </motion.div>
@@ -36,9 +36,11 @@ export default function Categories() {
             mt-12
             grid
             grid-cols-2
+            gap-3
             gap-6
             md:grid-cols-3
             lg:grid-cols-6
+            lg:gap-6
           "
         >
           {categories.map((category) => (

@@ -32,7 +32,7 @@ export default function Hero() {
       <div className="absolute inset-x-0 top-0 h-60 bg-gradient-to-b from-red-50/70 to-transparent" />
 
       <Container>
-        <div className="relative z-10 grid min-h-screen items-center gap-20 py-24 lg:grid-cols-2">
+        <div className="relative z-10 grid min-h-[calc(100svh-10rem)] items-center gap-8 py-10 sm:gap-12 sm:py-16 lg:min-h-[720px] lg:grid-cols-2 lg:gap-20 lg:py-24">
           {/* Left */}
           <motion.div
             initial={{

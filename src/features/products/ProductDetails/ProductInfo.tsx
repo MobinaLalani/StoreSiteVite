@@ -14,7 +14,7 @@ interface ProductInfoProps {
 
 export default function ProductInfo({ product }: ProductInfoProps) {
   return (
-    <div className="flex flex-col space-y-8">
+    <div className="flex flex-col space-y-6 sm:space-y-8">
       {/* Brand */}
 
       <span className="text-sm font-semibold text-red-500">
@@ -26,7 +26,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
       <motion.h1
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="text-4xl font-black leading-tight text-gray-900"
+        className="text-3xl font-black leading-tight text-gray-900 sm:text-4xl"
       >
         {product.title}
       </motion.h1>
@@ -104,7 +104,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
 
       {/* Services */}
 
-      <div className="grid gap-4 rounded-3xl border border-gray-200 p-5 md:grid-cols-2">
+      <div className="grid gap-4 rounded-2xl border border-gray-200 p-4 sm:rounded-3xl sm:p-5 md:grid-cols-2">
         <div className="flex items-center gap-3">
           <Truck size={22} className="text-red-500" />
 

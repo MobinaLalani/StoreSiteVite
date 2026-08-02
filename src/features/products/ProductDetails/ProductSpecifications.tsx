@@ -27,7 +27,7 @@ export default function ProductSpecifications({
       transition={{
         duration: 0.4,
       }}
-      className="rounded-3xl border border-gray-200 bg-white p-8"
+      className="rounded-2xl border border-gray-200 bg-white p-5 sm:rounded-3xl sm:p-8"
     >
       {/* Header */}
 
@@ -43,15 +43,15 @@ export default function ProductSpecifications({
         {product.specifications.map((item, index) => (
           <div
             key={item.title}
-            className={`grid grid-cols-3 border-b border-gray-100 last:border-none ${
+            className={`grid grid-cols-1 border-b border-gray-100 last:border-none sm:grid-cols-3 ${
               index % 2 === 0 ? "bg-gray-50" : "bg-white"
             }`}
           >
-            <div className="border-l border-gray-100 px-6 py-5 font-semibold text-gray-700">
+            <div className="border-b border-gray-100 px-4 py-3 font-semibold text-gray-700 sm:border-b-0 sm:border-l sm:px-6 sm:py-5">
               {item.title}
             </div>
 
-            <div className="col-span-2 px-6 py-5 text-gray-600">
+            <div className="col-span-2 px-4 py-3 text-gray-600 sm:px-6 sm:py-5">
               {item.value}
             </div>
           </div>

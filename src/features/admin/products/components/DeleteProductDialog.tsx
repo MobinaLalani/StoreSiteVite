@@ -48,7 +48,8 @@ export default function DeleteProductDialog({
           max-w-md
           rounded-2xl
           bg-white
-          p-6
+          p-5
+          sm:p-6
           shadow-xl
         "
       >

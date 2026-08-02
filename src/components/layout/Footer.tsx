@@ -16,10 +16,10 @@ export default function Footer() {
       viewport={{
         once: true,
       }}
-      className="mt-24 border-t bg-white"
+      className="mt-14 border-t bg-white sm:mt-24"
     >
       <Container>
-        <div className="flex h-40 items-center justify-between">
+        <div className="flex min-h-40 flex-col items-center justify-center gap-5 py-8 text-center sm:flex-row sm:justify-between sm:text-right">
           <div>
             <h3 className="text-xl font-bold">NextShop</h3>
 

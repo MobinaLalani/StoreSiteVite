@@ -24,7 +24,7 @@ export default function DataTable<T>({
 }: DataTableProps<T>) {
   if (loading) {
     return (
-      <div className="rounded-2xl bg-white p-10 text-center shadow">
+      <div className="rounded-2xl bg-white p-6 text-center shadow sm:p-10">
         در حال بارگذاری...
       </div>
     );
@@ -32,16 +32,16 @@ export default function DataTable<T>({
 
   if (!data.length) {
     return (
-      <div className="rounded-2xl bg-white p-10 text-center shadow">
+      <div className="rounded-2xl bg-white p-6 text-center shadow sm:p-10">
         {emptyMessage}
       </div>
     );
   }
 
   return (
-    <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
-      <div className="overflow-x-auto">
-        <table className="min-w-full">
+    <div className="max-w-full overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
+      <div className="overflow-x-auto overscroll-x-contain [-webkit-overflow-scrolling:touch]">
+        <table className="min-w-[760px] lg:min-w-full">
           <thead className="bg-gray-50">
             <tr>
               {columns.map((column) => (
@@ -50,7 +50,7 @@ export default function DataTable<T>({
                   style={{
                     width: column.width,
                   }}
-                  className="px-5 py-4 text-right text-sm font-semibold text-gray-700"
+                  className="whitespace-nowrap px-4 py-4 text-right text-sm font-semibold text-gray-700 sm:px-5"
                 >
                   {column.title}
                 </th>
@@ -64,7 +64,7 @@ export default function DataTable<T>({
                 {columns.map((column) => (
                   <td
                     key={column.title}
-                    className="px-5 py-4 text-sm text-gray-700"
+                    className="whitespace-nowrap px-4 py-4 text-sm text-gray-700 sm:px-5"
                   >
                     {column.render
                       ? column.render(row)
