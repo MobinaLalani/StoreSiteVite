@@ -1,44 +1,78 @@
-import { products as initialProducts } from "@/src/data/products";
-import { Product } from "@/src/types/product";
+import { API_BASE_URL } from "@/src/lib/api";
+import type { Product } from "@/src/types/product";
 
-const STORAGE_KEY = "store_products";
+type ProductCreateInput = Omit<Product, "id" | "createdAt" | "updatedAt">;
+type ProductUpdateInput = Partial<Omit<Product, "id">>;
 
-function readProducts(): Product[] {
-  const saved = localStorage.getItem(STORAGE_KEY);
-  if (!saved) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(initialProducts));
-    return [...initialProducts];
+interface ApiErrorResponse {
+  message?: string;
+  errors?: Record<string, string>;
+}
+
+async function request<T>(path: string, options?: RequestInit): Promise<T> {
+  const response = await fetch(`${API_BASE_URL}${path}`, options);
+
+  if (!response.ok) {
+    let payload: ApiErrorResponse = {};
+
+    try {
+      payload = (await response.json()) as ApiErrorResponse;
+    } catch {
+      // Some server errors may not contain a JSON body.
+    }
+
+    const validationMessage = payload.errors
+      ? Object.values(payload.errors).join("، ")
+      : "";
+
+    throw new Error(
+      validationMessage ||
+        payload.message ||
+        `خطا در ارتباط با سرور (${response.status})`,
+    );
   }
-  return JSON.parse(saved) as Product[];
+
+  if (response.status === 204) {
+    return undefined as T;
+  }
+
+  return (await response.json()) as T;
 }
 
-function writeProducts(products: Product[]) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(products));
+function jsonRequest(method: "POST" | "PUT", data: unknown): RequestInit {
+  return {
+    method,
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  };
 }
 
-export async function getProducts(): Promise<Product[]> {
-  return readProducts();
+export function getProducts(): Promise<Product[]> {
+  return request<Product[]>("/products");
 }
 
-export async function createProduct(data: Omit<Product, "id" | "createdAt" | "updatedAt">): Promise<Product> {
-  const products = readProducts();
-  const now = new Date().toISOString();
-  const product: Product = { ...data, id: Math.max(0, ...products.map((item) => item.id)) + 1, createdAt: now, updatedAt: now };
-  writeProducts([...products, product]);
-  return product;
+export function createProduct(data: ProductCreateInput): Promise<Product> {
+  return request<Product>("/products", jsonRequest("POST", data));
 }
 
-export async function updateProduct(id: number, data: Partial<Omit<Product, "id">>): Promise<Product> {
-  const products = readProducts();
-  const current = products.find((item) => item.id === id);
-  if (!current) throw new Error("محصول پیدا نشد.");
-  const updated = { ...current, ...data, id, updatedAt: new Date().toISOString() };
-  writeProducts(products.map((item) => item.id === id ? updated : item));
-  return updated;
+export function updateProduct(
+  id: number,
+  data: ProductUpdateInput,
+): Promise<Product> {
+  return request<Product>(`/products/${id}`, jsonRequest("PUT", data));
 }
 
-export async function deleteProduct(id: number): Promise<void> {
-  writeProducts(readProducts().filter((item) => item.id !== id));
+export function deleteProduct(id: number): Promise<void> {
+  return request<void>(`/products/${id}`, {
+    method: "DELETE",
+  });
 }
 
-export const productService = { getProducts, createProduct, updateProduct, deleteProduct };
+export const productService = {
+  getProducts,
+  createProduct,
+  updateProduct,
+  deleteProduct,
+};
