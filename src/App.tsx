@@ -1,5 +1,6 @@
-import { useState } from "react";
-import { Navigate, Outlet, Route, Routes, useParams } from "react-router-dom";
+import { useEffect, useState, type ReactNode } from "react";
+import { Navigate, NavLink, Outlet, Route, Routes, useLocation, useParams } from "react-router-dom";
+import { FolderTree, LayoutDashboard, Package, Store } from "lucide-react";
 
 import Header from "@/src/components/layout/Header";
 import Navbar from "@/src/components/layout/Navbar";
@@ -14,6 +15,7 @@ import ProductCategoryPage from "@/src/features/products/productCategory";
 import ProductPage from "@/src/features/admin/products/ProductPage";
 import { CategoryPage } from "@/src/features/admin/categories";
 import LoginForm from "@/src/features/admin/auth/components/LoginForm";
+import { validateSession } from "@/src/lib/auth";
 import { products } from "@/src/data/products";
 import {
   ProductGallery,
@@ -46,7 +48,27 @@ function CategoryProductsPage() {
 
 function AdminLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  return <div className="flex min-h-dvh bg-gray-50 lg:h-screen"><Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} /><div className="flex min-w-0 flex-1 flex-col overflow-hidden"><AdminHeader onMenu={() => setSidebarOpen(true)} /><main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8"><Outlet /></main><AdminFooter /></div></div>;
+  return <div className="flex min-h-dvh bg-gray-50 lg:h-screen"><Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} /><div className="flex min-w-0 flex-1 flex-col overflow-hidden"><AdminHeader onMenu={() => setSidebarOpen(true)} /><main className="flex-1 overflow-y-auto p-4 pb-24 sm:p-6 sm:pb-24 lg:p-8"><Outlet /></main><AdminFooter /><AdminMobileNav /></div></div>;
+}
+
+function ProtectedAdminRoute({ children }: { children: ReactNode }) {
+  const location = useLocation();
+  const [status, setStatus] = useState<"loading" | "allowed" | "denied">("loading");
+  useEffect(() => {
+    let active = true;
+    validateSession().then((valid) => { if (active) setStatus(valid ? "allowed" : "denied"); });
+    const unauthorized = () => setStatus("denied");
+    window.addEventListener("auth:unauthorized", unauthorized);
+    return () => { active = false; window.removeEventListener("auth:unauthorized", unauthorized); };
+  }, []);
+  if (status === "loading") return <div className="grid min-h-dvh place-items-center bg-gray-50"><div className="text-center"><div className="mx-auto h-10 w-10 animate-spin rounded-full border-4 border-gray-200 border-t-red-500"/><p className="mt-4 text-sm text-gray-500">در حال بررسی دسترسی...</p></div></div>;
+  if (status === "denied") return <Navigate to="/admin/login" state={{ from: location.pathname }} replace />;
+  return children;
+}
+
+function AdminMobileNav() {
+  const itemClass = ({ isActive }: { isActive: boolean }) => `flex flex-1 flex-col items-center justify-center gap-1 py-2 text-[11px] font-medium ${isActive ? "text-red-500" : "text-gray-500"}`;
+  return <nav className="fixed inset-x-0 bottom-0 z-40 border-t bg-white/95 pb-[env(safe-area-inset-bottom)] shadow-[0_-8px_30px_rgba(15,23,42,.10)] backdrop-blur-xl lg:hidden"><div className="mx-auto flex h-[4.25rem] max-w-md px-2"><NavLink end to="/admin" className={itemClass}><LayoutDashboard size={21}/><span>داشبورد</span></NavLink><NavLink to="/admin/Products" className={itemClass}><Package size={21}/><span>محصولات</span></NavLink><NavLink to="/admin/Categories" className={itemClass}><FolderTree size={21}/><span>دسته‌بندی</span></NavLink><NavLink to="/" className={itemClass}><Store size={21}/><span>فروشگاه</span></NavLink></div></nav>;
 }
 
 function LoginPage() {
@@ -58,5 +80,5 @@ function NotFound() {
 }
 
 export default function App() {
-  return <Routes><Route path="/" element={<StoreLayout />}><Route index element={<HomePage />} /><Route path="home" element={<HomePage />} /><Route path="products" element={<ProductSection title="محصولات" description="همه محصولات فروشگاه" />} /><Route path="products/:slug" element={<ProductDetailsPage />} /><Route path="products/category/:slug" element={<CategoryProductsPage />} /></Route><Route path="/admin/login" element={<LoginPage />} /><Route path="/admin" element={<AdminLayout />}><Route index element={<div>پنل مدیریت فروشگاه</div>} /><Route path="Products" element={<ProductPage />} /><Route path="Categories" element={<CategoryPage />} /></Route><Route path="/404" element={<NotFound />} /><Route path="*" element={<Navigate to="/404" replace />} /></Routes>;
+  return <Routes><Route path="/" element={<StoreLayout />}><Route index element={<HomePage />} /><Route path="home" element={<HomePage />} /><Route path="products" element={<ProductSection title="محصولات" description="همه محصولات فروشگاه" />} /><Route path="products/:slug" element={<ProductDetailsPage />} /><Route path="products/category/:slug" element={<CategoryProductsPage />} /></Route><Route path="/admin/login" element={<LoginPage />} /><Route path="/admin" element={<ProtectedAdminRoute><AdminLayout /></ProtectedAdminRoute>}><Route index element={<div>پنل مدیریت فروشگاه</div>} /><Route path="Products" element={<ProductPage />} /><Route path="Categories" element={<CategoryPage />} /></Route><Route path="/404" element={<NotFound />} /><Route path="*" element={<Navigate to="/404" replace />} /></Routes>;
 }

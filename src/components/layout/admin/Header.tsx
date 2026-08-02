@@ -1,8 +1,12 @@
 "use client";
 
-import { Bell, Search, UserCircle2, Menu } from "lucide-react";
+import { Bell, Search, UserCircle2, Menu, LogOut } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { clearSession } from "@/src/lib/auth";
 
 export default function Header({ onMenu }: { onMenu?: () => void }) {
+  const navigate = useNavigate();
+  function logout() { clearSession(); navigate("/admin/login", { replace: true }); }
   return (
     <header className="flex min-h-16 items-center justify-between gap-3 border-b bg-white px-4 sm:h-20 sm:px-6 lg:px-8">
       <div className="flex min-w-0 items-center gap-3">
@@ -35,6 +39,7 @@ export default function Header({ onMenu }: { onMenu?: () => void }) {
             <span className="text-xs text-gray-500">Administrator</span>
           </div>
         </button>
+        <button onClick={logout} title="خروج" className="grid h-11 w-11 place-items-center rounded-full bg-red-50 text-red-600 hover:bg-red-100"><LogOut size={19}/></button>
       </div>
     </header>
   );

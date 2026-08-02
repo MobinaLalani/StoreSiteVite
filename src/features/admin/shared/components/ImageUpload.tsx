@@ -6,6 +6,7 @@ import Image from "@/src/components/ui/AppImage";
 
 import { Upload, X } from "lucide-react";
 import { API_BASE_URL, resolveImageUrl } from "@/src/lib/api";
+import { authFetch } from "@/src/lib/auth";
 
 interface ImageUploadProps {
   value?: string | string[];
@@ -36,7 +37,7 @@ export default function ImageUpload({
         const formData = new FormData();
         formData.append("file", file);
 
-        const response = await fetch(`${API_BASE_URL}/upload`, {
+        const response = await authFetch(`${API_BASE_URL}/upload`, {
           method: "POST",
           body: formData,
         });

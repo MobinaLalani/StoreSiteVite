@@ -33,8 +33,6 @@ export default function LoginForm() {
     try {
     await loginMutation.mutateAsync(data);
 
-    await new Promise((resolve) => setTimeout(resolve, 3000));
-
     navigate("/admin/Products");
     } catch {}
   }
@@ -60,7 +58,7 @@ export default function LoginForm() {
 
       {loginMutation.isError && (
         <div className="rounded-lg bg-red-50 p-3 text-sm text-red-600">
-          نام کاربری یا رمز عبور اشتباه است.
+          {loginMutation.error instanceof Error ? loginMutation.error.message : "نام کاربری یا رمز عبور اشتباه است."}
         </div>
       )}
 

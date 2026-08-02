@@ -1,4 +1,5 @@
 import { API_BASE_URL } from "@/src/lib/api";
+import { authFetch } from "@/src/lib/auth";
 import type { Product } from "@/src/types/product";
 
 type ProductCreateInput = Omit<Product, "id" | "createdAt" | "updatedAt">;
@@ -10,7 +11,7 @@ interface ApiErrorResponse {
 }
 
 async function request<T>(path: string, options?: RequestInit): Promise<T> {
-  const response = await fetch(`${API_BASE_URL}${path}`, options);
+  const response = await authFetch(`${API_BASE_URL}${path}`, options);
 
   if (!response.ok) {
     let payload: ApiErrorResponse = {};
