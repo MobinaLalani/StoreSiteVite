@@ -45,7 +45,7 @@ export default function Button({
 
         {
           // Variants
-          "bg-blue-600 text-white hover:bg-blue-700": variant === "primary",
+          "bg-gradient-to-l from-red-500 to-red-600 text-white shadow-lg shadow-red-500/20 hover:-translate-y-0.5 hover:shadow-red-500/30": variant === "primary",
 
           "bg-gray-700 text-white hover:bg-gray-800": variant === "secondary",
 

@@ -18,9 +18,6 @@ export const products: Product[] = [
       "/Image/products/phone2.jpg",
     ],
 
-    price: 82000000,
-    oldPrice: 87000000,
-    discount: 8,
 
     rating: 4.8,
     reviewCount: 248,
@@ -81,9 +78,6 @@ export const products: Product[] = [
       "/Image/products/laptop1.jpg",
     ],
 
-    price: 112000000,
-    oldPrice: 118000000,
-    discount: 5,
 
     rating: 4.9,
     reviewCount: 103,
@@ -143,9 +137,6 @@ export const products: Product[] = [
       "/Image/products/headphone2.jpg",
     ],
 
-    price: 18900000,
-    oldPrice: 21400000,
-    discount: 12,
 
     rating: 4.7,
     reviewCount: 184,
@@ -198,9 +189,6 @@ export const products: Product[] = [
 
     images: ["/Image/products/phone2.jpg", "/Image/products/phone2.jpg"],
 
-    price: 49500000,
-    oldPrice: 52000000,
-    discount: 6,
 
     rating: 4.8,
     reviewCount: 74,

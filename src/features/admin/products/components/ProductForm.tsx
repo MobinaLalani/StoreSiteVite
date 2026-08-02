@@ -66,12 +66,6 @@ export default function ProductForm({
 
       images: [],
 
-      price: 0,
-
-      oldPrice: undefined,
-
-      discount: undefined,
-
       rating: 0,
 
       reviewCount: 0,
@@ -111,12 +105,6 @@ export default function ProductForm({
       thumbnail: initialValues?.thumbnail ?? "",
 
       images: initialValues?.images ?? [],
-
-      price: initialValues?.price ?? 0,
-
-      oldPrice: initialValues?.oldPrice,
-
-      discount: initialValues?.discount,
 
       rating: initialValues?.rating ?? 0,
 
@@ -211,22 +199,6 @@ export default function ProductForm({
         {errors.thumbnail && (
           <p className="text-sm text-red-500">{errors.thumbnail.message}</p>
         )}
-      </div>
-
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-        <Input
-          label="قیمت"
-          type="number"
-          error={errors.price?.message}
-          {...register("price")}
-        />
-
-        <Input
-          label="قیمت قبل"
-          type="number"
-          error={errors.oldPrice?.message}
-          {...register("oldPrice")}
-        />
       </div>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">

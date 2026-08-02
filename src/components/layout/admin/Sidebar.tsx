@@ -54,9 +54,9 @@ export default function Sidebar({ open = false, onClose }: SidebarProps) {
   return (
     <>
     {open && <button aria-label="بستن منو" onClick={onClose} className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm lg:hidden" />}
-    <aside className={`fixed inset-y-0 right-0 z-50 w-[min(82vw,18rem)] border-l border-gray-200 bg-white shadow-2xl transition-transform duration-300 lg:static lg:z-auto lg:w-72 lg:translate-x-0 lg:shadow-none ${open ? "translate-x-0" : "translate-x-full"}`}>
-      <div className="border-b p-6">
-        <div className="flex items-center justify-between"><h1 className="text-2xl font-bold">Store Admin</h1><button onClick={onClose} className="grid h-10 w-10 place-items-center rounded-xl bg-gray-100 lg:hidden"><X size={20}/></button></div>
+    <aside className={`fixed inset-y-0 right-0 z-50 w-[min(82vw,18rem)] border-l border-slate-800 bg-slate-950 text-white shadow-2xl transition-transform duration-300 lg:static lg:z-auto lg:w-72 lg:translate-x-0 lg:shadow-none ${open ? "translate-x-0" : "translate-x-full"}`}>
+      <div className="border-b border-slate-800 p-6">
+        <div className="flex items-center justify-between"><div><h1 className="text-2xl font-black">اتصال <span className="text-red-500">گستر</span></h1><p className="mt-1 text-xs text-slate-500">پنل مدیریت فروشگاه</p></div><button onClick={onClose} className="grid h-10 w-10 place-items-center rounded-xl bg-slate-800 lg:hidden"><X size={20}/></button></div>
       </div>
 
       <nav className="space-y-2 p-4">
@@ -74,8 +74,8 @@ export default function Sidebar({ open = false, onClose }: SidebarProps) {
 
               ${
                 active
-                  ? "bg-red-500 text-white"
-                  : "text-gray-600 hover:bg-gray-100"
+                  ? "bg-gradient-to-l from-red-500 to-red-600 text-white shadow-lg shadow-red-950/30"
+                  : "text-slate-400 hover:bg-slate-900 hover:text-white"
               }
               `}
             >

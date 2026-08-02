@@ -19,13 +19,13 @@ export default function Header() {
       transition={{
         duration: 0.5,
       }}
-      className="border-b bg-white"
+      className="sticky top-0 z-40 border-b border-white/60 bg-white/80 shadow-[0_10px_40px_-28px_rgba(15,23,42,.6)] backdrop-blur-xl"
     >
       <Container>
         <div className="flex min-h-16 flex-wrap items-center justify-between gap-3 py-3 sm:h-20 sm:flex-nowrap sm:py-0">
-          <h1 className="whitespace-nowrap text-xl font-black text-red-500 sm:text-3xl">اتصال گستر</h1>
+          <h1 className="whitespace-nowrap bg-gradient-to-l from-red-500 to-red-700 bg-clip-text text-xl font-black text-transparent sm:text-3xl">اتصال گستر</h1>
 
-          <div className="order-3 flex w-full items-center rounded-xl border bg-gray-50 px-3 sm:order-none sm:max-w-xl sm:px-4">
+          <div className="order-3 flex w-full items-center rounded-2xl border border-slate-200/80 bg-slate-50/80 px-3 shadow-inner transition focus-within:border-red-300 focus-within:bg-white focus-within:ring-4 focus-within:ring-red-100 sm:order-none sm:max-w-xl sm:px-4">
             <Search size={20} className="text-gray-500" />
 
             <input

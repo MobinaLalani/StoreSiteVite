@@ -5,7 +5,6 @@ import { Star, CheckCircle2, Truck, ShieldCheck } from "lucide-react";
 
 import { Product } from "@/src/types/product";
 
-import ProductPrice from "./ProductPrice";
 import ProductActions from "./ProductActions";
 
 interface ProductInfoProps {
@@ -94,13 +93,9 @@ export default function ProductInfo({ product }: ProductInfoProps) {
         </div>
       </div>
 
-      {/* Price */}
-
-      <ProductPrice product={product} />
-
       {/* Actions */}
 
-      <ProductActions />
+      <ProductActions productTitle={product.title} />
 
       {/* Services */}
 

@@ -71,7 +71,7 @@ export default function HeroContent() {
 
         <div className="flex items-center gap-3">
           <BadgeCheck className="text-red-500" size={20} />
-          <span>قیمت رقابتی</span>
+          <span>استعلام سریع</span>
         </div>
       </motion.div>
 

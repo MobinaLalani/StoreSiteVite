@@ -1,6 +1,7 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { Navigate, NavLink, Outlet, Route, Routes, useLocation, useParams } from "react-router-dom";
 import { FolderTree, LayoutDashboard, Package, Store } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
 
 import Header from "@/src/components/layout/Header";
 import Navbar from "@/src/components/layout/Navbar";
@@ -26,7 +27,8 @@ import {
 } from "@/src/features/products/ProductDetails";
 
 function StoreLayout() {
-  return <div className="pb-[calc(4.25rem+env(safe-area-inset-bottom))] lg:pb-0"><Header /><Navbar /><Outlet /><Footer /></div>;
+  const location = useLocation();
+  return <div className="pb-[calc(4.25rem+env(safe-area-inset-bottom))] lg:pb-0"><Header /><Navbar /><AnimatePresence mode="wait"><motion.div key={location.pathname} initial={{opacity:0,y:12}} animate={{opacity:1,y:0}} exit={{opacity:0,y:-8}} transition={{duration:.28,ease:[.22,1,.36,1]}}><Outlet /></motion.div></AnimatePresence><Footer /></div>;
 }
 
 function HomePage() {
@@ -48,7 +50,8 @@ function CategoryProductsPage() {
 
 function AdminLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  return <div className="flex min-h-dvh bg-gray-50 lg:h-screen"><Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} /><div className="flex min-w-0 flex-1 flex-col overflow-hidden"><AdminHeader onMenu={() => setSidebarOpen(true)} /><main className="flex-1 overflow-y-auto p-4 pb-24 sm:p-6 sm:pb-24 lg:p-8"><Outlet /></main><AdminFooter /><AdminMobileNav /></div></div>;
+  const location = useLocation();
+  return <div className="admin-canvas flex min-h-dvh lg:h-screen"><Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} /><div className="flex min-w-0 flex-1 flex-col overflow-hidden"><AdminHeader onMenu={() => setSidebarOpen(true)} /><main className="flex-1 overflow-y-auto p-4 pb-24 sm:p-6 sm:pb-24 lg:p-8"><AnimatePresence mode="wait"><motion.div key={location.pathname} initial={{opacity:0,y:14,scale:.995}} animate={{opacity:1,y:0,scale:1}} exit={{opacity:0,y:-8}} transition={{duration:.25,ease:[.22,1,.36,1]}}><Outlet /></motion.div></AnimatePresence></main><AdminFooter /><AdminMobileNav /></div></div>;
 }
 
 function ProtectedAdminRoute({ children }: { children: ReactNode }) {
@@ -72,7 +75,7 @@ function AdminMobileNav() {
 }
 
 function LoginPage() {
-  return <div className="flex min-h-dvh items-center justify-center bg-gray-100 p-4 sm:p-6"><div className="w-full max-w-md rounded-2xl bg-white p-5 shadow-xl sm:p-8"><h1 className="mb-6 text-center text-2xl font-bold sm:mb-8 sm:text-3xl">پنل مدیریت</h1><LoginForm /></div></div>;
+  return <div className="relative flex min-h-dvh items-center justify-center overflow-hidden bg-slate-950 p-4 sm:p-6"><div className="absolute -right-32 -top-32 h-96 w-96 rounded-full bg-red-500/25 blur-3xl"/><div className="absolute -bottom-40 -left-32 h-[28rem] w-[28rem] rounded-full bg-sky-500/20 blur-3xl"/><motion.div initial={{opacity:0,y:24,scale:.97}} animate={{opacity:1,y:0,scale:1}} transition={{duration:.55,ease:[.22,1,.36,1]}} className="premium-surface relative w-full max-w-md rounded-3xl p-5 shadow-2xl sm:p-8"><div className="mx-auto mb-5 grid h-14 w-14 place-items-center rounded-2xl bg-gradient-to-br from-red-500 to-red-700 text-xl font-black text-white shadow-lg shadow-red-500/25">اگ</div><h1 className="text-center text-2xl font-black text-slate-900 sm:text-3xl">ورود به مدیریت</h1><p className="mb-7 mt-2 text-center text-sm text-slate-500">مدیریت امن فروشگاه اتصال گستر</p><LoginForm /></motion.div></div>;
 }
 
 function NotFound() {

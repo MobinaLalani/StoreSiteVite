@@ -13,12 +13,6 @@ export const productSchema = z.object({
 
   images: z.array(z.string()),
 
-  price: z.coerce.number().positive("قیمت باید بیشتر از صفر باشد."),
-
-  oldPrice: z.coerce.number().optional(),
-
-  discount: z.coerce.number().optional(),
-
   rating: z.coerce.number().default(0),
 
   reviewCount: z.coerce.number().default(0),

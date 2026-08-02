@@ -87,38 +87,6 @@ export default function ProductTable({
     },
 
     {
-      key: "price",
-
-      title: "قیمت",
-
-      render: (product) => (
-        <div className="flex flex-col">
-          <span
-            className="
-            font-semibold
-            text-gray-900
-          "
-          >
-            {product.price.toLocaleString()}
-            تومان
-          </span>
-
-          {product.oldPrice && (
-            <span
-              className="
-                text-xs
-                text-gray-400
-                line-through
-              "
-            >
-              {product.oldPrice.toLocaleString()}
-            </span>
-          )}
-        </div>
-      ),
-    },
-
-    {
       key: "stock",
 
       title: "موجودی",
@@ -255,7 +223,7 @@ export default function ProductTable({
       {products.map((product) => <article key={product.id} className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
         <div className="flex gap-3 p-4">
           <Image src={product.thumbnail} alt={product.title} width={84} height={84} className="h-21 w-21 shrink-0 rounded-2xl border bg-gray-50 object-contain p-1" />
-          <div className="min-w-0 flex-1"><div className="flex items-start justify-between gap-2"><div className="min-w-0"><h3 className="truncate font-bold text-gray-900">{product.title}</h3><p className="mt-1 truncate text-xs text-gray-400">{product.brand} • {product.sku}</p></div>{product.isFeatured&&<Star size={18} className="shrink-0 fill-amber-400 text-amber-400"/>}</div><p className="mt-3 font-bold text-red-600">{product.price.toLocaleString("fa-IR")} <span className="text-xs font-normal">تومان</span></p></div>
+          <div className="min-w-0 flex-1"><div className="flex items-start justify-between gap-2"><div className="min-w-0"><h3 className="truncate font-bold text-gray-900">{product.title}</h3><p className="mt-1 truncate text-xs text-gray-400">{product.brand} • {product.sku}</p></div>{product.isFeatured&&<Star size={18} className="shrink-0 fill-amber-400 text-amber-400"/>}</div><span className="mt-3 inline-flex rounded-lg bg-red-50 px-3 py-1 text-xs font-bold text-red-600">قیمت پس از استعلام</span></div>
         </div>
         <div className="grid grid-cols-2 border-y bg-gray-50/70 text-sm"><div className="border-l p-3"><span className="text-gray-400">موجودی</span><b className={`mr-2 ${product.stock>0?"text-green-600":"text-red-600"}`}>{product.stock>0?`${product.stock} عدد`:"ناموجود"}</b></div><div className="p-3"><span className="text-gray-400">وضعیت</span><b className="mr-2 text-gray-700">{product.status==="active"?"فعال":product.status==="draft"?"پیش‌نویس":"آرشیو"}</b></div></div>
         <div className="grid grid-cols-2 gap-3 p-3"><button onClick={()=>onEdit(product)} className="flex min-h-12 items-center justify-center gap-2 rounded-xl bg-blue-50 font-semibold text-blue-700 active:scale-[.98]"><Pencil size={18}/>ویرایش</button><button onClick={()=>onDelete(product)} className="flex min-h-12 items-center justify-center gap-2 rounded-xl bg-red-50 font-semibold text-red-600 active:scale-[.98]"><Trash2 size={18}/>حذف</button></div>

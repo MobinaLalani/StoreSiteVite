@@ -8,7 +8,7 @@ export default function Header({ onMenu }: { onMenu?: () => void }) {
   const navigate = useNavigate();
   function logout() { clearSession(); navigate("/admin/login", { replace: true }); }
   return (
-    <header className="flex min-h-16 items-center justify-between gap-3 border-b bg-white px-4 sm:h-20 sm:px-6 lg:px-8">
+    <header className="flex min-h-16 items-center justify-between gap-3 border-b border-white/60 bg-white/80 px-4 shadow-sm backdrop-blur-xl sm:h-20 sm:px-6 lg:px-8">
       <div className="flex min-w-0 items-center gap-3">
         <button onClick={onMenu} aria-label="باز کردن منو" className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-gray-100 lg:hidden"><Menu size={22}/></button>
         <div className="min-w-0"><h2 className="truncate text-lg font-bold sm:text-2xl">داشبورد</h2>
@@ -22,7 +22,7 @@ export default function Header({ onMenu }: { onMenu?: () => void }) {
 
           <input
             placeholder="جستجو..."
-            className="rounded-xl border py-2 pr-10 pl-4 outline-none focus:border-red-500"
+            className="rounded-xl border border-slate-200 bg-slate-50 py-2 pr-10 pl-4 outline-none transition focus:border-red-400 focus:bg-white focus:ring-4 focus:ring-red-100"
           />
         </div>
 

@@ -39,10 +39,10 @@ export default function DataTable<T>({
   }
 
   return (
-    <div className="max-w-full overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
+    <div className="max-w-full overflow-hidden rounded-2xl border border-white/80 bg-white/90 shadow-[0_20px_55px_-38px_rgba(15,23,42,.6)] backdrop-blur">
       <div className="overflow-x-auto overscroll-x-contain [-webkit-overflow-scrolling:touch]">
         <table className="min-w-[760px] lg:min-w-full">
-          <thead className="bg-gray-50">
+          <thead className="bg-slate-900 text-white">
             <tr>
               {columns.map((column) => (
                 <th
@@ -50,7 +50,7 @@ export default function DataTable<T>({
                   style={{
                     width: column.width,
                   }}
-                  className="whitespace-nowrap px-4 py-4 text-right text-sm font-semibold text-gray-700 sm:px-5"
+                  className="whitespace-nowrap px-4 py-4 text-right text-sm font-semibold text-slate-200 sm:px-5"
                 >
                   {column.title}
                 </th>
@@ -60,7 +60,7 @@ export default function DataTable<T>({
 
           <tbody>
             {data.map((row, rowIndex) => (
-              <tr key={rowIndex} className="border-t hover:bg-gray-50">
+              <tr key={rowIndex} className="border-t border-slate-100 transition-colors hover:bg-red-50/40">
                 {columns.map((column) => (
                   <td
                     key={column.title}

@@ -25,14 +25,14 @@ export default function ProductImage({ product }: Props) {
           transition={{
             duration: 0.35,
           }}
-          className="flex h-56 items-center justify-center bg-transparent sm:h-72"
+          className="relative flex h-56 items-center justify-center bg-gradient-to-b from-slate-50 to-white after:absolute after:inset-x-10 after:bottom-3 after:h-8 after:rounded-full after:bg-slate-900/10 after:blur-xl sm:h-72"
         >
           <Image
             src={product.thumbnail}
             alt={product.title}
             width={220}
             height={220}
-            className="object-contain"
+            className="relative z-10 object-contain drop-shadow-[0_18px_18px_rgba(15,23,42,.18)]"
           />
         </motion.div>
       </Link>

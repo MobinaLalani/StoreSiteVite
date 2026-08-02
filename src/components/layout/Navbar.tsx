@@ -63,7 +63,7 @@ export default function Navbar() {
 
   return (
     <>
-    <nav className="relative hidden border-b bg-white lg:block">
+    <nav className="relative hidden border-b border-slate-100 bg-white/90 shadow-sm backdrop-blur-xl lg:block">
       <Container>
         <div className="flex min-h-14 items-center justify-between gap-4 py-2 lg:justify-start lg:gap-10 lg:py-0">
           {/* Category Button */}
@@ -72,7 +72,7 @@ export default function Navbar() {
             onMouseEnter={() => window.innerWidth >= 1024 && setOpen(true)}
             onMouseLeave={() => window.innerWidth >= 1024 && setOpen(false)}
           >
-            <button onClick={() => setOpen((value) => !value)} className="flex min-h-11 items-center gap-2 rounded-xl bg-red-50 px-4 py-2 font-semibold text-red-600 transition hover:bg-red-100">
+            <button onClick={() => setOpen((value) => !value)} className="flex min-h-11 items-center gap-2 rounded-xl bg-gradient-to-l from-red-500 to-red-600 px-4 py-2 font-semibold text-white shadow-lg shadow-red-500/15 transition hover:-translate-y-0.5 hover:shadow-red-500/25">
               <Menu size={18} />
               دسته بندی ها
               <ChevronDown
@@ -102,7 +102,7 @@ export default function Navbar() {
                   transition={{
                     duration: 0.25,
                   }}
-                  className="absolute right-0 top-14 z-50 hidden h-[420px] w-[720px] overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-2xl lg:flex"
+                  className="premium-surface absolute right-0 top-14 z-50 hidden h-[420px] w-[720px] overflow-hidden rounded-3xl lg:flex"
                 >
                   {/* Left */}
                   <div className="w-64 border-l bg-gray-50">
@@ -229,7 +229,7 @@ export default function Navbar() {
         </>
       )}
     </AnimatePresence>
-    <nav className="fixed inset-x-0 bottom-0 z-[70] border-t border-slate-200 bg-white/95 pb-[env(safe-area-inset-bottom)] shadow-[0_-8px_30px_rgba(15,23,42,.10)] backdrop-blur-xl lg:hidden">
+    <nav className="fixed inset-x-0 bottom-0 z-[70] border-t border-white/70 bg-white/90 pb-[env(safe-area-inset-bottom)] shadow-[0_-12px_40px_rgba(15,23,42,.13)] backdrop-blur-2xl lg:hidden">
       <div className="mx-auto flex h-[4.25rem] max-w-md items-stretch px-2">
         <NavLink to="/" end className={mobileItemClass}><House size={21}/><span>خانه</span></NavLink>
         <NavLink to="/products" className={mobileItemClass}><ShoppingBag size={21}/><span>محصولات</span></NavLink>

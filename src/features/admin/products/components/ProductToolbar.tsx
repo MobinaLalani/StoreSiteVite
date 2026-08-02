@@ -27,10 +27,12 @@ export default function ProductToolbar({
         flex-col
         gap-4
         rounded-2xl
-        bg-white
+        border border-white/80
+        bg-white/90
         p-4
         sm:p-5
-        shadow-sm
+        shadow-[0_18px_50px_-38px_rgba(15,23,42,.6)]
+        backdrop-blur
         md:flex-row
         md:items-center
         md:justify-between
@@ -50,13 +52,13 @@ export default function ProductToolbar({
           justify-center
           gap-2
           rounded-xl
-          bg-blue-600
+          bg-gradient-to-l from-red-500 to-red-600
           px-5
           min-h-12
           py-3
           text-white
           transition
-          hover:bg-blue-700
+          shadow-lg shadow-red-500/20 hover:-translate-y-0.5 hover:shadow-red-500/30
         "
       >
         <Plus size={18} />

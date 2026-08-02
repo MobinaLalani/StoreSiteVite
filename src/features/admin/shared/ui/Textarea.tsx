@@ -40,8 +40,8 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
           value={value}
           maxLength={maxLength}
           className={clsx(
-            "min-h-[120px] w-full resize-y rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm outline-none transition",
-            "focus:border-blue-500 focus:ring-2 focus:ring-blue-100",
+            "min-h-[120px] w-full resize-y rounded-xl border border-slate-200 bg-slate-50/70 px-4 py-3 text-sm outline-none transition",
+            "hover:border-slate-300 focus:border-red-400 focus:bg-white focus:ring-4 focus:ring-red-100",
             "disabled:bg-gray-100 disabled:text-gray-500",
             error && "border-red-500 focus:border-red-500 focus:ring-red-100",
             className,

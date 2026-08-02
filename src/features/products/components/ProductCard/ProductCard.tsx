@@ -6,7 +6,6 @@ import { Product } from "../../../../types/product";
 
 import ProductImage from "./ProductImage";
 import ProductRating from "./ProductRating";
-import ProductPrice from "./ProductPrice";
 import ProductActions from "./ProductActions";
 
 interface ProductCardProps {
@@ -20,7 +19,7 @@ export default function ProductCard({ product }: ProductCardProps) {
   layout
   whileHover={{ y: -8 }}
   transition={{ duration: 0.25 }}
-  className="group flex min-h-[440px] flex-col overflow-hidden rounded-2xl border border-gray-200 bg-gray-100 shadow-sm hover:shadow-2xl sm:h-[520px] sm:rounded-3xl"
+  className="group flex min-h-[440px] flex-col overflow-hidden rounded-2xl border border-white/80 bg-white/90 shadow-[0_18px_50px_-34px_rgba(15,23,42,.55)] backdrop-blur transition-all duration-500 hover:-translate-y-2 hover:border-red-100 hover:shadow-[0_28px_70px_-35px_rgba(239,68,68,.4)] sm:h-[520px] sm:rounded-3xl"
 >
   <ProductImage product={product} />
 
@@ -39,8 +38,7 @@ export default function ProductCard({ product }: ProductCardProps) {
 
     <ProductRating product={product} />
 
-    {/* <ProductPrice product={product} /> */}
-    <ProductActions />
+    <ProductActions productTitle={product.title} />
   </div>
 </motion.article>
   );

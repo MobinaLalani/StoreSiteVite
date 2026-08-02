@@ -3,9 +3,12 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { createPortal } from "react-dom";
-import { PhoneCall, X } from "lucide-react";
+import { MessageCircle, PhoneCall, X } from "lucide-react";
+import { SALES_CONTACT, whatsappUrl } from "@/src/config/contact";
 
-export default function ProductActions() {
+interface ProductActionsProps { productTitle?: string; variant?: "card" | "detail"; }
+
+export default function ProductActions({ productTitle, variant = "card" }: ProductActionsProps) {
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
 
@@ -19,7 +22,7 @@ export default function ProductActions() {
         whileHover={{ scale: 1.03 }}
         whileTap={{ scale: 0.96 }}
         onClick={() => setOpen(true)}
-        className="flex w-full items-center justify-center gap-3 rounded-2xl bg-red-500 py-4 font-semibold text-white transition hover:bg-red-600"
+        className={`interactive-sheen flex w-full items-center justify-center gap-3 rounded-2xl bg-gradient-to-l from-red-500 to-red-600 font-semibold text-white shadow-lg shadow-red-500/20 transition hover:-translate-y-0.5 hover:shadow-red-500/30 ${variant === "detail" ? "min-h-14 px-6 py-4 text-base" : "py-4"}`}
       >
         <PhoneCall size={20} />
         استعلام قیمت
@@ -51,7 +54,7 @@ export default function ProductActions() {
                 >
                   <div className="mb-6 flex items-center justify-between">
                     <h2 className="text-xl font-bold">
-                      اطلاعات تماس
+                    استعلام قیمت
                     </h2>
 
                     <button
@@ -63,25 +66,26 @@ export default function ProductActions() {
                   </div>
 
                   <p className="mb-6 text-sm text-gray-500">
-                    برای اطلاع از قیمت روز با شماره‌های زیر تماس بگیرید.
+                    برای دریافت قیمت روز «{productTitle || "محصول"}» تماس بگیرید یا در واتساپ پیام دهید.
                   </p>
 
                   <div className="space-y-4">
                     <a
-                      href="tel:02112345678"
+                      href={SALES_CONTACT.landlineHref}
                       className="flex items-center gap-3 rounded-xl border p-4 transition hover:bg-gray-50"
                     >
                       <PhoneCall className="text-red-500" />
-                      <span>021-12345678</span>
+                      <span dir="ltr">{SALES_CONTACT.landlineDisplay}</span>
                     </a>
 
                     <a
-                      href="tel:09121234567"
+                      href={SALES_CONTACT.mobileHref}
                       className="flex items-center gap-3 rounded-xl border p-4 transition hover:bg-gray-50"
                     >
                       <PhoneCall className="text-red-500" />
-                      <span>0912-123-4567</span>
+                      <span dir="ltr">{SALES_CONTACT.mobileDisplay}</span>
                     </a>
+                    <a href={whatsappUrl(productTitle)} target="_blank" rel="noreferrer" className="flex min-h-14 items-center justify-center gap-3 rounded-xl bg-emerald-500 p-4 font-bold text-white shadow-lg shadow-emerald-500/20 transition hover:bg-emerald-600"><MessageCircle/><span>استعلام در واتساپ</span></a>
                   </div>
                 </motion.div>
               </motion.div>

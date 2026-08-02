@@ -28,15 +28,16 @@ export default function CategoryCard({ category }: Props) {
           group
           rounded-2xl
           border
-          border-gray-200
-          bg-white
+          border-white/80
+          bg-white/85
           p-3
           sm:rounded-3xl
           sm:p-6
-          shadow-sm
+          shadow-[0_16px_45px_-30px_rgba(15,23,42,.5)]
+          backdrop-blur
           transition-all
           hover:border-red-200
-          hover:shadow-xl
+          hover:shadow-[0_25px_60px_-30px_rgba(239,68,68,.45)]
         "
       >
         <div className="flex flex-col items-center">
