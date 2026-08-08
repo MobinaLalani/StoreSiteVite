@@ -15,7 +15,7 @@ interface ProductCardProps {
 
 export default function ProductCard({ product }: ProductCardProps) {
   const navigate = useNavigate();
-  const productPath = `/products/${product.slug.replace(/^\//, "")}`;
+  const productPath = `/products/${encodeURIComponent(product.slug.replace(/^\//, ""))}`;
 
   const openProduct = () => navigate(productPath);
 

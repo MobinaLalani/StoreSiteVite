@@ -54,7 +54,16 @@ function ProductDetailsPage() {
   if (isLoading) return <main className="mx-auto max-w-7xl px-4 py-10"><ProductGridSkeleton count={2} /></main>;
   if (isError) return <main className="p-16 text-center"><h1 className="text-3xl font-bold">خطا در دریافت محصول</h1></main>;
 
-  const product = products.find((item) => item.slug === slug);
+  let decodedSlug = slug;
+  try {
+    decodedSlug = decodeURIComponent(slug);
+  } catch {
+    // React Router usually decodes params; keep the original value if it is malformed.
+  }
+  const normalizedSlug = decodedSlug.trim().toLocaleLowerCase("en-US");
+  const product = products.find(
+    (item) => item.slug.trim().toLocaleLowerCase("en-US") === normalizedSlug,
+  );
   if (!product) return <NotFound />;
   const relatedProducts = products.filter((item) => item.categoryId === product.categoryId && item.id !== product.id).slice(0, 4);
   return <main className="mx-auto max-w-7xl space-y-10 px-4 py-6 sm:space-y-14 sm:px-6 sm:py-10 lg:space-y-20"><section className="grid gap-8 lg:grid-cols-2 lg:gap-12"><ProductGallery product={product} /><ProductInfo product={product} /></section><ProductDescription product={product} /><ProductSpecifications product={product} /><RelatedProducts products={relatedProducts} /></main>;

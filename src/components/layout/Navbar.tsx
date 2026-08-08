@@ -165,7 +165,7 @@ export default function Navbar() {
                           className="cursor-pointer rounded-xl bg-gray-50 p-4 transition hover:bg-red-50 hover:text-red-600"
                         >
                           <Link
-                            href={`/products/${product.slug.replace(/^\//, "")}`}
+                            href={`/products/${encodeURIComponent(product.slug.replace(/^\//, ""))}`}
                             onClick={() => setOpen(false)}
                             className="block"
                           >

@@ -51,11 +51,14 @@ function jsonRequest(method: "POST" | "PUT", data: unknown): RequestInit {
 }
 
 export function normalizeProduct(product: Product): Product {
+  const thumbnail = resolveImageUrl(product.thumbnail);
+  const images = (product.images ?? []).map(resolveImageUrl).filter(Boolean);
+
   return {
     ...product,
-    slug: product.slug.replace(/^\/+/, ""),
-    thumbnail: resolveImageUrl(product.thumbnail),
-    images: (product.images ?? []).map(resolveImageUrl),
+    slug: product.slug.trim().replace(/^\/+/, ""),
+    thumbnail,
+    images: images.length > 0 ? images : [thumbnail],
     tags: product.tags ?? [],
     colors: product.colors ?? [],
     specifications: product.specifications ?? [],

@@ -14,7 +14,7 @@ export default function CategoryCard({ category }: Props) {
   return (
     <Link
       href={`/products/category/${category.slug.replace(/^\//, "")}`}
-      className="block"
+      className="block h-full"
       aria-label={`مشاهده محصولات دسته ${category.title}`}
     >
       <motion.article
@@ -30,12 +30,17 @@ export default function CategoryCard({ category }: Props) {
         }}
         className="
           group
+          flex
+          h-full
+          min-h-36
+          flex-col
           rounded-2xl
           border
           border-white/80
           bg-white/85
           p-3
           sm:rounded-3xl
+          sm:min-h-48
           sm:p-6
           shadow-[0_16px_45px_-30px_rgba(15,23,42,.5)]
           backdrop-blur
@@ -44,7 +49,7 @@ export default function CategoryCard({ category }: Props) {
           hover:shadow-[0_25px_60px_-30px_rgba(239,68,68,.45)]
         "
       >
-        <div className="flex flex-col items-center">
+        <div className="flex h-full flex-col items-center">
           <div
             className="
               relative
@@ -70,20 +75,21 @@ export default function CategoryCard({ category }: Props) {
             />
           </div>
 
+          <div className="mt-3 flex min-h-10 items-center justify-center text-center sm:mt-5 sm:min-h-14">
           <h3
             className="
-              mt-3
+              line-clamp-2
               text-sm
               font-bold
               text-gray-800
               transition-colors
               group-hover:text-red-500
-              sm:mt-5
               sm:text-lg
             "
           >
             {category.title}
           </h3>
+          </div>
         </div>
       </motion.article>
     </Link>

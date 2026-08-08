@@ -17,7 +17,7 @@ export default function ProductImage({ product }: Props) {
     <div className="relative overflow-hidden">
       <ProductBadge product={product} />
 
-      <Link href={`/products/${product.slug.replace(/^\//, "")}`}>
+      <Link href={`/products/${encodeURIComponent(product.slug.replace(/^\//, ""))}`}>
         <motion.div
           whileHover={{
             scale: 1.08,
