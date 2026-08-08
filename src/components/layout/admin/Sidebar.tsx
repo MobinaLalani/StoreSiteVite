@@ -9,6 +9,7 @@ import {
   FolderTree,
   MessageCircle,
   Settings,
+  Store,
   X,
 } from "lucide-react";
 
@@ -79,6 +80,19 @@ export default function Sidebar({ open = false, onClose }: SidebarProps) {
             </Link>
           );
         })}
+
+        <div className="pt-3">
+          <Link
+            href="/"
+            target="_blank"
+            rel="noreferrer"
+            onClick={onClose}
+            className="flex items-center gap-3 rounded-xl border border-slate-700 px-4 py-3 text-slate-300 transition hover:border-red-500 hover:bg-slate-900 hover:text-white"
+          >
+            <Store size={20} />
+            <span>مشاهده فروشگاه</span>
+          </Link>
+        </div>
       </nav>
     </aside>
     </>

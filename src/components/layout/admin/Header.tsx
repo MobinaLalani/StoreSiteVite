@@ -1,8 +1,9 @@
 "use client";
 
-import { Bell, Search, UserCircle2, Menu, LogOut } from "lucide-react";
+import { Bell, Search, UserCircle2, Menu, LogOut, Store } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { clearSession } from "@/src/lib/auth";
+import Link from "@/src/components/ui/AppLink";
 
 export default function Header({ onMenu }: { onMenu?: () => void }) {
   const navigate = useNavigate();
@@ -17,6 +18,17 @@ export default function Header({ onMenu }: { onMenu?: () => void }) {
       </div>
 
       <div className="flex items-center gap-2 sm:gap-5">
+        <Link
+          href="/"
+          target="_blank"
+          rel="noreferrer"
+          title="مشاهده فروشگاه"
+          className="flex h-11 items-center gap-2 rounded-xl bg-slate-900 px-3 text-sm font-bold text-white transition hover:bg-red-600 sm:px-4"
+        >
+          <Store size={19} />
+          <span className="hidden sm:inline">مشاهده فروشگاه</span>
+        </Link>
+
         <div className="relative hidden md:block">
           <Search className="absolute right-3 top-3 text-gray-400" size={18} />
 
