@@ -4,6 +4,8 @@ import CategoryInfo from "./CategoryInfo";
 import ProductGrid from "../components/ProductSection/ProductGrid";
 
 import { getCategoryData } from "./utils/getCategoryData";
+import { useCategoriesWithProducts } from "@/src/features/admin/categories/hooks/useCategoriesWithProducts";
+import ProductGridSkeleton from "../components/skeletons/ProductGridSkeleton";
 
 interface ProductCategoryPageProps {
   slug: string;
@@ -12,7 +14,16 @@ interface ProductCategoryPageProps {
 export default function ProductCategoryPage({
   slug,
 }: ProductCategoryPageProps) {
-  const data = getCategoryData(slug);
+  const { data: categories = [], isLoading, isError } = useCategoriesWithProducts();
+  const data = getCategoryData(slug, categories);
+
+  if (isLoading) {
+    return <main className="container mx-auto px-4 py-10"><ProductGridSkeleton /></main>;
+  }
+
+  if (isError) {
+    return <main className="p-16 text-center"><h1 className="text-3xl font-bold">خطا در دریافت دسته‌بندی</h1></main>;
+  }
 
   if (!data) {
     return <main className="p-16 text-center"><h1 className="text-3xl font-bold">دسته‌بندی پیدا نشد</h1></main>;

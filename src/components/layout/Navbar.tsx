@@ -116,9 +116,12 @@ export default function Navbar() {
                           ] ?? Menu;
 
                         return (
-                          <button
+                          <Link
                             key={category.id}
+                            href={`/products/category/${category.slug.replace(/^\//, "")}`}
                             onMouseEnter={() => setActiveId(category.id)}
+                            onFocus={() => setActiveId(category.id)}
+                            onClick={() => setOpen(false)}
                             className={`flex w-full items-center gap-3 px-5 py-4 text-right transition ${
                               active?.id === category.id
                                 ? "bg-white font-bold text-red-600"
@@ -128,7 +131,7 @@ export default function Navbar() {
                             <Icon size={20} />
 
                             {category.title}
-                          </button>
+                          </Link>
                         );
                       })
                     )}
@@ -161,7 +164,13 @@ export default function Navbar() {
                           }}
                           className="cursor-pointer rounded-xl bg-gray-50 p-4 transition hover:bg-red-50 hover:text-red-600"
                         >
-                          {product.title}
+                          <Link
+                            href={`/products/${product.slug.replace(/^\//, "")}`}
+                            onClick={() => setOpen(false)}
+                            className="block"
+                          >
+                            {product.title}
+                          </Link>
                         </motion.div>
                       ))}
                     </div>

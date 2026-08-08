@@ -6,7 +6,7 @@ import Container from "../../../../components/ui/Container";
 
 import ProductGridSkeleton from "../skeletons/ProductGridSkeleton";
 
-import { products } from "../../../../data/products";
+import { useProducts } from "@/src/features/admin/products/hooks/useProducts";
 
 interface ProductSectionProps {
   title: string;
@@ -18,14 +18,14 @@ export default function ProductSection({
   title,
   description,
 }: ProductSectionProps) {
-  const isLoading = false;
+  const { data: products = [], isLoading, isError } = useProducts();
 
   if (isLoading) {
     return <ProductGridSkeleton />;
   }
 
   if (products.length === 0) {
-    return <ProductEmpty />;
+    return <ProductEmpty title={isError ? "خطا در دریافت محصولات" : undefined} description={isError ? "ارتباط با API محصولات برقرار نشد. لطفاً دوباره تلاش کنید." : undefined} />;
 
   }
 

@@ -12,7 +12,11 @@ interface Props {
 
 export default function CategoryCard({ category }: Props) {
   return (
-    <Link href={`/products/category/${category.slug}`}>
+    <Link
+      href={`/products/category/${category.slug.replace(/^\//, "")}`}
+      className="block"
+      aria-label={`مشاهده محصولات دسته ${category.title}`}
+    >
       <motion.article
         whileHover={{
           y: -8,

@@ -1,6 +1,7 @@
 import { API_BASE_URL, resolveImageUrl } from "@/src/lib/api";
 import { Category } from "@/src/types/category";
 import { Product } from "@/src/types/product";
+import { normalizeProduct } from "@/src/features/admin/products/services/product.service";
 import { authFetch } from "@/src/lib/auth";
 
 const API_URL = `${API_BASE_URL}/categories`;
@@ -51,5 +52,8 @@ export async function getCategoriesWithProducts(): Promise<(Category & { product
     await authFetch(`${API_URL}?includeProducts=true`),
     "خطا در دریافت دسته‌بندی‌ها",
   );
-  return data.map((category) => ({ ...normalizeCategory(category), products: category.products }));
+  return data.map((category) => ({
+    ...normalizeCategory(category),
+    products: (category.products ?? []).map(normalizeProduct),
+  }));
 }

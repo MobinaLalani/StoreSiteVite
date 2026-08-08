@@ -1,16 +1,16 @@
-import { products } from "@/src/data/products";
-import { categories } from "@/src/data/categories";
+import type { Category } from "@/src/types/category";
+import type { Product } from "@/src/types/product";
 
-export function getCategoryData(slug: string) {
+type CategoryWithProducts = Category & { products: Product[] };
+
+export function getCategoryData(slug: string, categories: CategoryWithProducts[]) {
   const category = categories.find((item) => item.slug === slug);
 
   if (!category) {
     return null;
   }
 
-  const categoryProducts = products.filter(
-    (product) => product.categoryId === category.id,
-  );
+  const categoryProducts = category.products ?? [];
 
   const brands = [...new Set(categoryProducts.map((item) => item.brand))];
 

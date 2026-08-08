@@ -16,7 +16,8 @@ import ProductCategoryPage from "@/src/features/products/productCategory";
 import LoginForm from "@/src/features/admin/auth/components/LoginForm";
 import { validateSession } from "@/src/lib/auth";
 import {usePublicSettings}from"@/src/features/admin/settings/hooks/useSettings";
-import { products } from "@/src/data/products";
+import { useProducts } from "@/src/features/admin/products/hooks/useProducts";
+import ProductGridSkeleton from "@/src/features/products/components/skeletons/ProductGridSkeleton";
 import {
   ProductGallery,
   ProductInfo,
@@ -34,7 +35,11 @@ const LazyPage=({children}:{children:ReactNode})=><Suspense fallback={<div class
 
 function StoreLayout() {
   const location = useLocation();
-  return <div className="pb-[calc(4.25rem+env(safe-area-inset-bottom))] lg:pb-0"><Header /><Navbar /><AnimatePresence mode="wait"><motion.div key={location.pathname} initial={{opacity:0,y:12}} animate={{opacity:1,y:0}} exit={{opacity:0,y:-8}} transition={{duration:.28,ease:[.22,1,.36,1]}}><Outlet /></motion.div></AnimatePresence><Footer /></div>;
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  }, [location.pathname]);
+
+  return <div className="pb-[calc(4.25rem+env(safe-area-inset-bottom))] lg:pb-0"><Header /><Navbar /><motion.div key={location.pathname} initial={{opacity:0,y:12}} animate={{opacity:1,y:0}} transition={{duration:.28,ease:[.22,1,.36,1]}}><Outlet /></motion.div><Footer /></div>;
 }
 
 function HomePage() {
@@ -44,6 +49,11 @@ function HomePage() {
 
 function ProductDetailsPage() {
   const { slug = "" } = useParams();
+  const { data: products = [], isLoading, isError } = useProducts();
+
+  if (isLoading) return <main className="mx-auto max-w-7xl px-4 py-10"><ProductGridSkeleton count={2} /></main>;
+  if (isError) return <main className="p-16 text-center"><h1 className="text-3xl font-bold">خطا در دریافت محصول</h1></main>;
+
   const product = products.find((item) => item.slug === slug);
   if (!product) return <NotFound />;
   const relatedProducts = products.filter((item) => item.categoryId === product.categoryId && item.id !== product.id).slice(0, 4);

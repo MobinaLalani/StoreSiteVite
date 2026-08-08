@@ -4,11 +4,12 @@ import { motion } from "framer-motion";
 
 import Container from "../../components/ui/Container";
 
-import { categories } from "@/src/data/categories";
+import { useCategoriesWithProducts } from "@/src/features/admin/categories/hooks/useCategoriesWithProducts";
 
 import CategoryCard from "./CategoryCard";
 
 export default function Categories() {
+  const { data: categories = [], isLoading, isError } = useCategoriesWithProducts();
   
   return (
     <section className="py-20">
@@ -43,6 +44,8 @@ export default function Categories() {
             lg:gap-6
           "
         >
+          {isLoading && <p className="col-span-full py-10 text-center text-gray-500">در حال دریافت دسته‌بندی‌ها...</p>}
+          {isError && <p className="col-span-full py-10 text-center text-red-500">دریافت دسته‌بندی‌ها ناموفق بود.</p>}
           {categories.map((category) => (
             <CategoryCard key={category.id} category={category} />
           ))}

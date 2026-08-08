@@ -1,4 +1,4 @@
-import { API_BASE_URL } from "@/src/lib/api";
+import { API_BASE_URL, resolveImageUrl } from "@/src/lib/api";
 import { authFetch } from "@/src/lib/auth";
 import type { Product } from "@/src/types/product";
 
@@ -50,8 +50,21 @@ function jsonRequest(method: "POST" | "PUT", data: unknown): RequestInit {
   };
 }
 
-export function getProducts(): Promise<Product[]> {
-  return request<Product[]>("/products");
+export function normalizeProduct(product: Product): Product {
+  return {
+    ...product,
+    slug: product.slug.replace(/^\/+/, ""),
+    thumbnail: resolveImageUrl(product.thumbnail),
+    images: (product.images ?? []).map(resolveImageUrl),
+    tags: product.tags ?? [],
+    colors: product.colors ?? [],
+    specifications: product.specifications ?? [],
+  };
+}
+
+export async function getProducts(): Promise<Product[]> {
+  const products = await request<Product[]>("/products");
+  return products.map(normalizeProduct);
 }
 
 export function createProduct(data: ProductCreateInput): Promise<Product> {
