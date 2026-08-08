@@ -11,6 +11,7 @@ import Sidebar from "@/src/components/layout/admin/Sidebar";
 import AdminFooter from "@/src/components/layout/admin/Footer";
 import Hero from "@/src/features/home/hero/Hero";
 import Categories from "@/src/features/home/Categories";
+import About from "@/src/features/home/About";
 import ProductSection from "@/src/features/products/components/ProductSection/ProductSection";
 import ProductCategoryPage from "@/src/features/products/productCategory";
 import LoginForm from "@/src/features/admin/auth/components/LoginForm";
@@ -44,7 +45,7 @@ function StoreLayout() {
 
 function HomePage() {
   const{data}=usePublicSettings();
-  return <><Hero />{data?.appearance.showCategories!==false&&<Categories />}{data?.appearance.showFeaturedProducts!==false&&<ProductSection title="جدیدترین محصولات" description="جدیدترین محصولات فروشگاه" />}</>;
+  return <><Hero />{data?.appearance.showCategories!==false&&<Categories />}{data?.appearance.showFeaturedProducts!==false&&<ProductSection title="جدیدترین محصولات" description="جدیدترین محصولات فروشگاه" />}<About /></>;
 }
 
 function ProductDetailsPage() {
